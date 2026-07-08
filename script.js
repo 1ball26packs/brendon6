@@ -9,27 +9,20 @@
 // ===============================
 
 const startButton = document.getElementById("startButton");
-
 const startScreen = document.getElementById("startScreen");
-
 const storyScreen = document.getElementById("storyScreen");
-
 const emergencyScreen = document.getElementById("emergencyScreen");
-
 const endingScreen = document.getElementById("endingScreen");
 
 const storyText = document.getElementById("storyText");
 
 const progress = document.getElementById("loadingProgress");
-
 const stage = document.getElementById("stage");
 
 const nextButton = document.getElementById("nextButton");
-
 const restartButton = document.getElementById("restartButton");
 
 const music = document.getElementById("backgroundMusic");
-
 
 
 let currentScene = 0;
@@ -43,12 +36,15 @@ let gameStarted = false;
 
 
 
+
+
+
 // ======================================
-// BRENDON DATA
+// DATA BRENDON
 // ======================================
 
 
-const scenes = [
+const scenes=[
 
 
 {
@@ -241,6 +237,9 @@ text:`
 
 LEVEL COMPLETE!
 
+
+🎂 HAPPY BIRTHDAY BRENDON!
+
 `
 }
 
@@ -256,12 +255,11 @@ LEVEL COMPLETE!
 
 
 // ======================================
-// TYPEWRITER
+// TYPEWRITER + AUTO SCROLL
 // ======================================
 
 
-function typeWriter(text,element,speed=35){
-
+function typeWriter(text, element, speed=35){
 
 
 if(typingTimer){
@@ -276,6 +274,10 @@ element.innerHTML="";
 
 
 
+element.scrollTop=0;
+
+
+
 let i=0;
 
 
@@ -283,11 +285,26 @@ let clean=text.replace(/\n/g,"<br>");
 
 
 
+
 typingTimer=setInterval(()=>{
 
 
-element.innerHTML=
+element.innerHTML =
 clean.substring(0,i);
+
+
+
+/*
+ AUTO SCROLL SAAT MENGETIK
+*/
+
+element.scrollTo({
+
+top:element.scrollHeight,
+
+behavior:"smooth"
+
+});
 
 
 
@@ -295,7 +312,7 @@ i++;
 
 
 
-if(i>clean.length){
+if(i > clean.length){
 
 
 clearInterval(typingTimer);
@@ -319,7 +336,6 @@ clearInterval(typingTimer);
 
 
 
-
 // ======================================
 // FULLSCREEN
 // ======================================
@@ -328,11 +344,8 @@ clearInterval(typingTimer);
 function openFullscreen(){
 
 
-let elem=document.documentElement;
+const elem=document.documentElement;
 
-
-
-try{
 
 
 if(elem.requestFullscreen){
@@ -357,21 +370,6 @@ elem.msRequestFullscreen();
 
 }
 
-catch(e){
-
-
-console.log(
-"Fullscreen tidak tersedia",
-e
-);
-
-
-}
-
-
-
-}
-
 
 
 
@@ -385,9 +383,7 @@ e
 // ======================================
 
 
-startButton.addEventListener(
-"click",
-async function(){
+startButton.onclick=async function(){
 
 
 
@@ -404,27 +400,24 @@ openFullscreen();
 
 
 
-music.volume=0.5;
+music.volume=.5;
 
 
 
 try{
 
-
 await music.play();
-
 
 }
 
 catch(e){
 
-
 console.log(
 "Music menunggu interaksi"
 );
 
-
 }
+
 
 
 
@@ -448,9 +441,7 @@ playScenes(currentScene);
 
 
 
-}
-
-);
+};
 
 
 
@@ -482,7 +473,6 @@ return;
 
 
 
-
 let current=scenes[index];
 
 
@@ -491,13 +481,12 @@ stage.innerHTML=current.stage;
 
 
 
-progress.style.width=
+progress.style.width =
 
 ((index+1)
 /scenes.length*100)
 
 +"%";
-
 
 
 
@@ -511,7 +500,7 @@ storyText
 
 
 
-if(index===scenes.length-1){
+if(index === scenes.length-1){
 
 
 nextButton.innerHTML=
@@ -544,18 +533,11 @@ nextButton.innerHTML=
 
 
 // ======================================
-// NEXT
+// NEXT BUTTON
 // ======================================
 
 
-nextButton.addEventListener(
-"click",
-function(){
-
-
-
-if(currentScene>=scenes.length)
-return;
+nextButton.onclick=function(){
 
 
 
@@ -567,9 +549,7 @@ playScenes(currentScene);
 
 
 
-}
-
-);
+};
 
 
 
@@ -580,7 +560,7 @@ playScenes(currentScene);
 
 
 // ======================================
-// EMERGENCY
+// EMERGENCY SCREEN
 // ======================================
 
 
@@ -661,9 +641,7 @@ createConfetti();
 // ======================================
 
 
-restartButton.addEventListener(
-"click",
-function(){
+restartButton.onclick=function(){
 
 
 
@@ -680,7 +658,6 @@ startScreen.classList.add(
 
 
 currentScene=0;
-
 
 
 gameStarted=false;
@@ -712,9 +689,7 @@ document
 
 
 
-}
-
-);
+};
 
 
 
@@ -751,6 +726,7 @@ c.className="confetti";
 c.innerHTML="✨";
 
 
+
 c.style.position="absolute";
 
 
@@ -758,10 +734,13 @@ c.style.left=
 Math.random()*100+"vw";
 
 
+
 c.style.top="-20px";
 
 
+
 c.style.fontSize=
+
 (10+Math.random()*30)+"px";
 
 
@@ -795,7 +774,7 @@ endingScreen.appendChild(c);
 
 
 // ======================================
-// ASSET LOADER
+// ASSET LOADING
 // ======================================
 
 
@@ -809,31 +788,20 @@ const assets=[
 
 
 
-const loadingScreen=
-document.getElementById(
-"loadingScreen"
-);
+const loadingScreen =
+document.getElementById("loadingScreen");
 
 
-
-const loadingFill=
-document.getElementById(
-"loadingFill"
-);
+const loadingFill =
+document.getElementById("loadingFill");
 
 
-
-const loadingPercent=
-document.getElementById(
-"loadingPercent"
-);
+const loadingPercent =
+document.getElementById("loadingPercent");
 
 
-
-const loadingStatus=
-document.getElementById(
-"loadingStatus"
-);
+const loadingStatus =
+document.getElementById("loadingStatus");
 
 
 
@@ -848,7 +816,6 @@ let loadedAssets=0;
 function updateLoading(){
 
 
-
 let percent=Math.floor(
 
 loadedAssets/assets.length*100
@@ -859,6 +826,7 @@ loadedAssets/assets.length*100
 
 loadingFill.style.width=
 percent+"%";
+
 
 
 loadingPercent.innerHTML=
@@ -903,7 +871,6 @@ loadedAssets++;
 
 updateLoading();
 
-
 resolve();
 
 
@@ -917,7 +884,6 @@ element.onerror=function(){
 loadedAssets++;
 
 updateLoading();
-
 
 resolve();
 
@@ -946,7 +912,6 @@ loadedAssets++;
 
 updateLoading();
 
-
 resolve();
 
 
@@ -960,7 +925,6 @@ element.onerror=function(){
 loadedAssets++;
 
 updateLoading();
-
 
 resolve();
 
@@ -1041,6 +1005,7 @@ loadingScreen.remove();
 
 
 }
+
 
 
 
