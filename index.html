@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Petualangan Brendon</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
@@ -11,92 +11,50 @@
         
         #game-wrapper { width: 95%; max-width: 500px; height: 95vh; display: flex; flex-direction: column; align-items: center; justify-content: center;}
 
-        .box { background: rgba(30, 30, 50, 0.95); border: 4px solid #fff; padding: 15px; width: 100%; border-radius: 15px; text-align: center; transition: 0.3s; }
+        .box { background: rgba(30, 30, 50, 0.95); border: 4px solid #fff; padding: 20px; width: 100%; border-radius: 15px; text-align: center; transition: 0.3s; }
         .hidden { display: none !important; }
 
-        /* Loading Screen Style */
         #loading-bar { width: 100%; border: 4px solid #fff; height: 26px; padding: 3px; margin-top: 25px; background: #000; box-shadow: 0 0 10px rgba(255,255,255,0.2); }
         #loading-bar-fill { height: 100%; background: #ffcc00; width: 0%; transition: width 0.1s ease; }
 
-        /* Puzzle Grid */
-        #puzzle-container { display: grid; grid-template-columns: repeat(4, 1fr); width: 100%; aspect-ratio: 4/3; margin: 0 0 10px 0; border: 2px solid #fff; background: #111; }
+        #puzzle-container { display: grid; grid-template-columns: repeat(4, 1fr); width: 100%; aspect-ratio: 4/2; margin: 0 0 10px 0; border: 2px solid #fff; background: #111; }
         .tile { border: 1px solid #000; background-color: #333; }
-        .revealed { 
-            background-image: url('siren2.png'); 
-            background-size: 400% 300%; 
-            animation: popReveal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
-        }
+        .revealed { background-image: url('siren2.png'); background-size: 400% 200%; animation: popReveal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
-        #story-text { font-size: 11px; line-height: 1.5; margin: 10px 0; }
+        #story-image-holder { width: 100%; border: 3px dashed #ffcc00; background: #222; margin: 5px 0 10px 0; border-radius: 8px; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        #story-image-holder img { width: 100%; height: 100%; object-fit: cover; }
         
-        /* Choices Grid */
-        .choices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
-        button { padding: 12px 5px; font-family: 'Press Start 2P', cursive; background: #ffcc00; border: none; cursor: pointer; font-size: 9px; border-radius: 5px; box-shadow: 0 4px 0 #cc9900; transition: transform 0.1s, box-shadow 0.1s; }
+        #story-text { font-size: 12px; line-height: 1.6; margin: 15px 0; min-height: 50px; }
+        
+        .choices-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: 100%; }
+        button { padding: 15px 5px; font-family: 'Press Start 2P', cursive; background: #ffcc00; border: none; cursor: pointer; font-size: 10px; border-radius: 5px; box-shadow: 0 4px 0 #cc9900; transition: transform 0.1s, box-shadow 0.1s; }
         button:active { background: #ffaa00; transform: translateY(4px); box-shadow: 0 0 0 #cc9900; }
+        .action-btn { background: #00ccff; box-shadow: 0 4px 0 #0099cc; color: #fff; }
+        .action-btn:active { background: #00aacc; box-shadow: 0 0 0 #0099cc; }
 
-        /* HUD (Heads Up Display) di Bawah dengan Foto */
-        .hud-box { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 10px 20px; background: rgba(20, 20, 30, 0.95); border: 3px solid #ffcc00; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-        
-        #avatar { 
-            width: 55px; 
-            height: 55px; 
-            border-radius: 50%; 
-            border: 3px solid #fff; 
-            object-fit: cover; 
-            background: #222;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        
-        .hud-info { text-align: right; transition: all 0.5s ease; }
-        .hud-name { font-size: 8px; color: #ffcc00; margin-bottom: 5px; }
-        #health { color: #ff3333; font-size: 14px; letter-spacing: 2px; }
+        .hud-box { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 10px 20px; background: rgba(20, 20, 30, 0.95); border: 3px solid #ffcc00; }
+        #avatar { width: 60px; height: 60px; border-radius: 50%; border: 3px solid #fff; object-fit: cover; background: #222; transition: transform 0.3s; }
+        .hud-info { text-align: right; }
+        .hud-name { font-size: 9px; color: #ffcc00; margin-bottom: 5px; }
+        #health { color: #ff3333; font-size: 16px; letter-spacing: 2px; }
 
-        /* Custom Popup Smooth Overlay */
-        .popup-overlay {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center;
-            align-items: center; z-index: 999; opacity: 0; pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.85); display: flex; justify-content: center; align-items: center; z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
         .popup-overlay.show { opacity: 1; pointer-events: auto; }
-        .popup-box { max-width: 320px; transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .popup-box { max-width: 350px; transform: scale(0.8); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .popup-overlay.show .popup-box { transform: scale(1); }
-        #popup-text { font-size: 10px; line-height: 1.6; margin-bottom: 20px; }
+        #popup-text { font-size: 11px; line-height: 1.6; margin-bottom: 20px; }
 
-        /* TRANSFORMATIF LAYOUT SAAT MENANG (WIN MODE) */
-        .hud-box.win-mode {
-            flex-direction: column;
-            justify-content: center;
-            gap: 15px;
-            border-color: #00ff00;
-            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
-            padding: 20px;
-        }
-        .hud-box.win-mode #avatar {
-            width: 130px;
-            height: 130px;
-            border-color: #00ff00;
-            box-shadow: 0 0 25px #00ff00;
-            animation: winPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, bounce 0.5s infinite alternate 0.6s;
-        }
-        .hud-box.win-mode .hud-info {
-            text-align: center;
-        }
-
-        /* ================= ANIMATIONS ================= */
         @keyframes pulse { 0%, 100% { transform: scale(1); text-shadow: 0 0 5px #ffcc00; } 50% { transform: scale(1.05); text-shadow: 0 0 20px #ffcc00; } }
-        @keyframes popReveal { 0% { transform: scale(0.5); opacity: 0; filter: brightness(3); } 50% { transform: scale(1.1); filter: brightness(1.5); } 100% { transform: scale(1); opacity: 1; filter: brightness(1); } }
-        @keyframes shake { 0%, 100% { transform: translateX(0); } 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+        @keyframes popReveal { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-10px); } 75% { transform: translateX(10px); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes neonGlow { 0%, 100% { text-shadow: 0 0 5px #0f0, 0 0 10px #0f0; color: #fff; } 50% { text-shadow: 0 0 20px #0f0, 0 0 40px #0f0; color: #aaffaa; } }
-        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-        @keyframes winPop { 0% { transform: scale(0.4); } 100% { transform: scale(1); } }
-
+        @keyframes neonGlow { 0%, 100% { text-shadow: 0 0 5px #0f0; } 50% { text-shadow: 0 0 20px #0f0; } }
+        @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        
         .title-anim { animation: pulse 2s infinite; }
         .shake-anim { animation: shake 0.4s ease-in-out; border-color: #ff0000 !important; }
-        .fade-in { animation: fadeInUp 0.5s ease-out forwards; }
-        .win-glow { animation: neonGlow 1.5s infinite alternate; font-size: 13px !important; line-height: 1.8 !important; }
+        .fade-in { animation: fadeInUp 0.4s ease-out forwards; }
+        .win-glow { animation: neonGlow 1.5s infinite alternate; }
         .avatar-bounce { animation: bounce 0.4s ease-out; }
     </style>
 </head>
@@ -104,22 +62,20 @@
 
 <div id="game-wrapper">
     <div id="loading-screen" class="box">
-        <h2 style="font-size: 14px; color: #ffcc00; letter-spacing: 2px;">PREPARING MISSION...</h2>
-        <div id="loading-bar">
-            <div id="loading-bar-fill"></div>
-        </div>
+        <h2 style="font-size: 14px; color: #ffcc00;">PREPARING MISSION...</h2>
+        <div id="loading-bar"><div id="loading-bar-fill"></div></div>
         <p id="loading-text" style="font-size: 8px; margin-top: 15px; color: #aaa;">LOADING... 0%</p>
     </div>
 
     <div id="start-menu" class="box hidden">
-        <h2 class="title-anim" style="font-size: 18px; line-height: 1.5; color: #ffcc00;">SIREN<br>RESCUE</h2>
-        <p style="font-size: 8px; margin-bottom: 30px;">Misi Spesial Brendon</p>
-           <p style="font-size: 8px;">Hello Mekanik Brendon, bantu agar siren bisa berfungsi normal kembali</p>
-        <button onclick="startGame()" style="font-size: 12px; padding: 15px;">SAYA SIAP!</button>
+        <h2 class="title-anim" style="font-size: 20px; color: #ffcc00;">SIREN<br>RESCUE</h2>
+        <p style="font-size: 10px; margin-bottom: 30px;">Ini adalah Misi Spesial Brendon<br><br>Mari bantu saya untuk memperbaiki siren yang rusak agar bisa berfungsi normal kembali!</p>
+        <button onclick="startGame()" style="font-size: 14px; padding: 20px;">PRESS START</button>
     </div>
 
     <div id="game-screen" class="box hidden">
         <div id="puzzle-container"></div>
+        <div id="story-image-holder" class="hidden"></div>
         <div id="story-text"></div>
         <div id="choices" class="choices-grid"></div>
     </div>
@@ -135,19 +91,18 @@
 
 <div id="custom-popup" class="popup-overlay hidden">
     <div class="box popup-box">
-        <p id="popup-text">Pesan Notifikasi</p>
-        <button id="popup-btn" style="font-size: 10px; width: 100%;">OKE</button>
+        <p id="popup-text"></p>
+        <button id="popup-btn" style="font-size: 12px; width: 100%;">OKE</button>
     </div>
 </div>
 
 <script>
     let health = 3;
-    let availableTiles = [0,1,2,3,4,5,6,7,8,9,10,11];
-
-    // Inisialisasi Audio Objek global
+    let currentStage = 0;
+    let availableTiles = [0,1,2,3,4,5,6,7];
+    let isShowingStory = false;
     let audioBGM, audioCorrect, audioWrong, audioSiren;
 
-    // Daftar semua asset yang harus di-load sebelum bermain
     const assetsToLoad = [
         { id: 'sirenPic', type: 'image', src: 'siren.png' },
         { id: 'normalPic', type: 'image', src: 'normal.png' },
@@ -163,56 +118,28 @@
     let loadedCount = 0;
     let preloaderFinished = false;
 
-    // Fungsi pelacak progres asset
+    function updateAvatar(mood) {
+        const avatar = document.getElementById('avatar');
+        if(mood === 'happy') avatar.src = 'happy.png';
+        else if(mood === 'sad') avatar.src = 'sad.png';
+        else if(mood === 'win') avatar.src = 'win.png';
+        else avatar.src = 'normal.png';
+    }
+
     function trackProgress() {
         if (preloaderFinished) return;
         loadedCount++;
-        
-        let percentage = Math.floor((loadedCount / assetsToLoad.length) * 100);
-        if (percentage > 100) percentage = 100;
-
-        document.getElementById('loading-bar-fill').style.width = percentage + '%';
-        document.getElementById('loading-text').innerText = `LOADING... ${percentage}%`;
-
-        if (loadedCount >= assetsToLoad.length) {
-            preloaderFinished = true;
-            setTimeout(showStartMenu, 600); // transisi mulus setelah 100%
-        }
+        let p = Math.floor((loadedCount / assetsToLoad.length) * 100);
+        document.getElementById('loading-bar-fill').style.width = (p > 100 ? 100 : p) + '%';
+        document.getElementById('loading-text').innerText = `LOADING... ${p}%`;
+        if (loadedCount >= assetsToLoad.length) { preloaderFinished = true; setTimeout(showStartMenu, 600); }
     }
 
-    // Eksekusi preload saat file HTML dibuka
     window.addEventListener('DOMContentLoaded', () => {
-        // Antisipasi jika preloader macet karena kebijakan proteksi audio browser mobile
-        setTimeout(() => {
-            if (!preloaderFinished) {
-                console.log("Preloader safety timeout triggered.");
-                preloaderFinished = true;
-                showStartMenu();
-            }
-        }, 4000); // Batas aman maksimal loading 4 detik
-
-        assetsToLoad.forEach(asset => {
-            if (asset.type === 'image') {
-                const img = new Image();
-                img.onload = trackProgress;
-                img.onerror = trackProgress; // Lewati jika ada file rusak/hilang agar game tidak macet
-                img.src = asset.src;
-            } else if (asset.type === 'audio') {
-                const audio = new Audio();
-                audio.preload = 'auto';
-                
-                // Menggunakan event 'loadedmetadata' karena lebih stabil di mobile browser
-                audio.addEventListener('loadedmetadata', trackProgress, { once: true });
-                audio.addEventListener('error', trackProgress, { once: true });
-                audio.src = asset.src;
-                audio.load();
-
-                // Simpan ke variabel global yang sesuai
-                if (asset.id === 'bgm') { audioBGM = audio; audioBGM.loop = true; }
-                if (asset.id === 'correct') audioCorrect = audio;
-                if (asset.id === 'wrong') audioWrong = audio;
-                if (asset.id === 'sirenSfx') audioSiren = audio;
-            }
+        setTimeout(() => { if (!preloaderFinished) { preloaderFinished = true; showStartMenu(); } }, 4000);
+        assetsToLoad.forEach(a => {
+            if (a.type === 'image') { const i = new Image(); i.onload = trackProgress; i.onerror = trackProgress; i.src = a.src; }
+            else if (a.type === 'audio') { const au = new Audio(); au.preload = 'auto'; au.addEventListener('loadedmetadata', trackProgress, {once:true}); au.addEventListener('error', trackProgress, {once:true}); au.src = a.src; au.load(); if(a.id==='bgm'){audioBGM=au; audioBGM.loop=true;} if(a.id==='correct')audioCorrect=au; if(a.id==='wrong')audioWrong=au; if(a.id==='sirenSfx')audioSiren=au; }
         });
     });
 
@@ -221,145 +148,111 @@
         document.getElementById('start-menu').classList.remove('hidden');
     }
 
-    // Membuat Grid Puzzle
     const container = document.getElementById('puzzle-container');
-    for(let i=0; i<12; i++) {
+    for(let i=0; i<8; i++) {
         let tile = document.createElement('div');
         tile.className = 'tile'; tile.id = 'tile-' + i;
-        tile.style.backgroundPosition = `${(i%4)*33.33}% ${Math.floor(i/4)*50}%`;
+        tile.style.backgroundPosition = `${(i%4)*33.33}% ${Math.floor(i/4)*100}%`;
         container.appendChild(tile);
     }
 
     const quiz = [
-        { q: "1. 3 + 3 = ?", options: ["6", "5", "7", "8"], correct: 0 },
-        { q: "2. Daun sehat warnanya?", options: ["Hijau", "Merah", "Biru", "Hitam"], correct: 0 },
-        { q: "3. 5 - 2 = ?", options: ["2", "3", "4", "1"], correct: 1 },
-        { q: "4. Suara kucing?", options: ["Guk", "Meong", "Kukuruyuk", "Mbek"], correct: 1 },
-        { q: "5. Kendaraan terbang?", options: ["Mobil", "Sepeda", "Pesawat", "Becak"], correct: 2 },
-        { q: "6. 5 + 5 = ?", options: ["8", "9", "10", "11"], correct: 2 },
-        { q: "7. Bersinar malam hari?", options: ["Bintang", "Awan", "Pohon", "Tanah"], correct: 0 },
-        { q: "8. Alat untuk mencium?", options: ["Mata", "Telinga", "Hidung", "Mulut"], correct: 2 },
-        { q: "9. Setelah 6 adalah?", options: ["5", "7", "8", "4"], correct: 1 },
-        { q: "10. Belajar di mana?", options: ["Pasar", "Taman", "Mall", "Sekolah"], correct: 3 },
-        { q: "11. Berapa kaki anjing?", options: ["2", "4", "6", "8"], correct: 1 },
-        { q: "12. Orang tua laki-laki?", options: ["Ibu", "Paman", "Kakek", "Ayah"], correct: 3 }
+        { q: "1. Berapa umur Brendon hari ini ?", options: ["6", "5", "7", "8"], correct: 0, story: "Brendon memulai perjalanan! Di depan gerbang markas, dia menemukan petunjuk pertama.", storyImg: "1.png" },
+        { q: "2. Daun Singkong warnanya?", options: ["Hijau", "Merah", "Biru", "Hitam"], correct: 0, story: "Hebat! Gerbang terbuka. Brendon melihat sebuah mesin aneh yang kabelnya putus.", storyImg: "2.png" },
+        { q: "3. 5 - 2 = ?", options: ["2", "3", "4", "1"], correct: 1, story: "Listrik menyala! Terdengar suara gemuruh dari lorong sebelah kanan.", storyImg: "3.png" },
+        { q: "4. Suara kucing?", options: ["Guk", "Meong", "Kukuruyuk", "Mbek"], correct: 1, story: "Ternyata itu robot kucing penjaga yang ramah! Dia memberikan kunci emas.", storyImg: "4.png" },
+        { q: "5. Kendaraan terbang?", options: ["Mobil", "Sepeda", "Pesawat", "Becak"], correct: 2, story: "Kunci itu membuka pintu laboratorium rahasia.", storyImg: "5.png" },
+        { q: "6. 5 + 5 = ?", options: ["8", "9", "10", "11"], correct: 2, story: "Sandi diterima! Layar komputer menampilkan peta lokasi Siren.", storyImg: "6.png" },
+        { q: "7. Bersinar malam hari?", options: ["Bintang", "Awan", "Pohon", "Tanah"], correct: 0, story: "Hampir sampai! Brendon Menekan tombol utama aktivasi Siren!", storyImg: "7.png" },
+        { q: "8. Alat untuk mencium?", options: ["Mata", "Telinga", "Hidung", "Mulut"], correct: 2, story: "Tombol ditekan! Siren berfungsi normal dan misi berhasil!", storyImg: "8.png" }
     ];
-
-    function startGame() {
-        if (document.documentElement.requestFullscreen) {
-            document.documentElement.requestFullscreen().catch(err => console.log("Fullscreen blocked:", err));
-        } else if (document.documentElement.webkitRequestFullscreen) { 
-            document.documentElement.webkitRequestFullscreen();
-        }
-
-        if (audioBGM) {
-            audioBGM.play().catch(err => console.log("Audio play blocked:", err));
-        }
-
-        document.getElementById('start-menu').classList.add('hidden');
-        document.getElementById('game-screen').classList.remove('hidden');
-        document.getElementById('hud-screen').classList.remove('hidden');
-        showStage(0);
-    }
 
     function showPopup(text, btnText, callback) {
         const popup = document.getElementById('custom-popup');
         document.getElementById('popup-text').innerText = text;
         const btn = document.getElementById('popup-btn');
         btn.innerText = btnText;
-        
         popup.classList.remove('hidden');
         setTimeout(() => popup.classList.add('show'), 10);
-
-        btn.onclick = () => {
-            popup.classList.remove('show');
-            setTimeout(() => popup.classList.add('hidden'), 300);
-            if(callback) callback();
-        };
+        btn.onclick = () => { popup.classList.remove('show'); setTimeout(() => popup.classList.add('hidden'), 300); if(callback) callback(); };
     }
 
-    function showStage(index) {
-        const storyText = document.getElementById('story-text');
-        const choicesDiv = document.getElementById('choices');
-        const avatar = document.getElementById('avatar');
-        const hudScreen = document.getElementById('hud-screen');
+    function showMissionBriefing() {
+        const sTxt = document.getElementById('story-text');
+        const cDiv = document.getElementById('choices');
+        sTxt.innerText = "BRENDON! Misi penyelamatan Siren telah dimulai. Fokus dan gunakan kecerdasanmu untuk membuka kunci misterius ini. Apakah kamu siap?";
+        cDiv.innerHTML = "<button class='action-btn' style='grid-column: span 2;' onclick='showStage()'>MULAI MISI!</button>";
+    }
+
+    function startGame() {
+        if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
+        if(audioBGM) audioBGM.play();
+        document.getElementById('start-menu').classList.add('hidden');
+        document.getElementById('game-screen').classList.remove('hidden');
+        document.getElementById('hud-screen').classList.remove('hidden');
+        showMissionBriefing();
+    }
+
+    function showStage() {
+        const sTxt = document.getElementById('story-text');
+        const cDiv = document.getElementById('choices');
+        const imgH = document.getElementById('story-image-holder');
         
-        storyText.classList.remove('fade-in');
-        choicesDiv.classList.remove('fade-in');
-        void storyText.offsetWidth; 
+        sTxt.classList.remove('fade-in'); cDiv.classList.remove('fade-in'); imgH.classList.remove('fade-in');
+        void sTxt.offsetWidth; 
 
-        if(index >= quiz.length) {
-            if (audioBGM) audioBGM.pause();
-            if (audioSiren) audioSiren.play().catch(err => console.log(err));
-
-            hudScreen.classList.add('win-mode');
-            avatar.src = 'win.png'; 
-
-            storyText.classList.add('fade-in', 'win-glow');
-            storyText.innerText = "SEMUA SIREN BERBUNYI! Selamat Ulang Tahun ke-6, Brendon Baskara Adinegara Siswanto!";
-            choicesDiv.style.display = "block";
-            choicesDiv.innerHTML = "<button class='fade-in' style='width:100%; font-size: 12px;' onclick='location.reload()'>MAIN LAGI</button>";
+        if(currentStage >= quiz.length) {
+            if(audioBGM) audioBGM.pause(); if(audioSiren) audioSiren.play();
+            
+            // Menampilkan gambar terakhir tanpa menghilangkan kontainer
+            imgH.classList.remove('hidden');
+            imgH.innerHTML = `<img src="${quiz[currentStage-1].storyImg}" alt="Scene">`;
+            
+            updateAvatar('win');
+            document.getElementById('hud-screen').classList.add('win-mode');
+            sTxt.classList.add('fade-in', 'win-glow');
+            sTxt.innerText = "SEMUA SIREN BERBUNYI! Selamat Ulang Tahun ke-6, Brendon!";
+            cDiv.innerHTML = "<button class='fade-in' style='grid-column: span 2;' onclick='location.reload()'>MAIN LAGI</button>";
             return;
         }
 
-        if(health > 0) avatar.src = 'normal.png'; 
-
-        storyText.classList.add('fade-in');
-        choicesDiv.classList.add('fade-in');
-        storyText.innerText = quiz[index].q;
-        choicesDiv.innerHTML = "";
-        
-        quiz[index].options.forEach((opt, i) => {
-            let btn = document.createElement("button");
-            btn.innerText = opt;
-            btn.onclick = () => checkAnswer(i, index);
-            choicesDiv.appendChild(btn);
-        });
-    }
-
-    function checkAnswer(chosen, index) {
-        const avatar = document.getElementById('avatar');
-
-        if(chosen === quiz[index].correct) {
-            if (audioCorrect) {
-                audioCorrect.currentTime = 0;
-                audioCorrect.play().catch(err => console.log(err));
-            }
-
-            avatar.src = 'happy.png'; 
-            avatar.classList.add('avatar-bounce');
-            setTimeout(() => avatar.classList.remove('avatar-bounce'), 400);
-
-            let rnd = Math.floor(Math.random() * availableTiles.length);
-            document.getElementById('tile-' + availableTiles[rnd]).classList.add('revealed');
-            availableTiles.splice(rnd, 1); 
-            
-            setTimeout(() => { showStage(index + 1); }, 600);
-            
+        if(isShowingStory) {
+            imgH.classList.remove('hidden', 'fade-in'); imgH.offsetHeight; imgH.classList.add('fade-in');
+            imgH.innerHTML = `<img src="${quiz[currentStage-1].storyImg}" alt="Scene">`;
+            sTxt.innerText = quiz[currentStage-1].story;
+            cDiv.innerHTML = `<button class="action-btn fade-in" style="grid-column: span 2;" onclick="isShowingStory=false; showStage();">LANJUT ➔</button>`;
         } else {
-            if (audioWrong) {
-                audioWrong.currentTime = 0;
-                audioWrong.play().catch(err => console.log(err));
-            }
-
-            health--;
-            document.getElementById('health').innerText = health > 0 ? "❤️".repeat(health) : "💔";
-            avatar.src = 'sad.png'; 
-            
-            const gameBox = document.getElementById('game-screen');
-            gameBox.classList.add('shake-anim');
-            setTimeout(() => gameBox.classList.remove('shake-anim'), 400);
-
-            if(health <= 0) { 
-                if (audioBGM) audioBGM.pause(); 
-                setTimeout(() => {
-                    showPopup("Yah, HP habis! Game Over. Ayo kita coba lagi dari awal, Brendon!", "COBA LAGI", () => {
-                        location.reload();
-                    });
-                }, 500);
-            } else {
-                setTimeout(() => { avatar.src = 'normal.png'; }, 1000); 
-            }
+            imgH.classList.add('hidden');
+            sTxt.innerText = quiz[currentStage].q;
+            cDiv.innerHTML = "";
+            quiz[currentStage].options.forEach((opt, i) => {
+                let btn = document.createElement("button"); btn.innerText = opt;
+                btn.onclick = () => {
+                    if(i === quiz[currentStage].correct) {
+                        if(audioCorrect) {
+                            audioCorrect.currentTime = 0; 
+                            audioCorrect.play();
+                        }
+                        updateAvatar('happy');
+                        document.getElementById('avatar').classList.add('avatar-bounce');
+                        setTimeout(() => document.getElementById('avatar').classList.remove('avatar-bounce'), 400);
+                        
+                        document.getElementById('tile-' + availableTiles.shift()).classList.add('revealed');
+                        currentStage++; isShowingStory = true;
+                        setTimeout(() => { updateAvatar('normal'); showStage(); }, 500);
+                    } else {
+                        if(audioWrong) audioWrong.play();
+                        updateAvatar('sad');
+                        health--; document.getElementById('health').innerText = health > 0 ? "❤️".repeat(health) : "💔";
+                        if(health <= 0) { showPopup("Game Over, Brendon!", "ULANG", () => location.reload()); }
+                        else { 
+                            document.getElementById('game-screen').classList.add('shake-anim'); 
+                            setTimeout(()=> { document.getElementById('game-screen').classList.remove('shake-anim'); updateAvatar('normal'); }, 400); 
+                        }
+                    }
+                };
+                cDiv.appendChild(btn);
+            });
         }
     }
 </script>
