@@ -8,7 +8,6 @@
 }
 
 
-
 html,
 body{
 
@@ -41,9 +40,9 @@ body{
 
 
 
-/* =================================
-   GAME CONTAINER
-================================= */
+/* ==========================
+GAME CONTAINER
+========================== */
 
 
 #game{
@@ -60,9 +59,9 @@ body{
     background:
 
     linear-gradient(
-        to bottom,
-        #10105c,
-        #020214
+    to bottom,
+    #10105c,
+    #020214
     );
 
 }
@@ -71,9 +70,9 @@ body{
 
 
 
-/* =================================
-   PIXEL STAR
-================================= */
+/* ==========================
+BACKGROUND PIXEL
+========================== */
 
 
 .pixel-stars{
@@ -86,27 +85,29 @@ body{
     background-image:
 
     radial-gradient(
-        white 2px,
-        transparent 2px
+    white 2px,
+    transparent 2px
     );
 
 
-    background-size:45px 45px;
+    background-size:
+
+    45px 45px;
+
+
+    opacity:.5;
 
 
     animation:
 
     starsMove 12s linear infinite;
 
-
-    opacity:.5;
-
-
 }
 
 
 
 @keyframes starsMove{
+
 
 from{
 
@@ -123,6 +124,7 @@ background-position:
 
 }
 
+
 }
 
 
@@ -130,37 +132,41 @@ background-position:
 
 
 
-/* =================================
-   CRT EFFECT
-================================= */
+/* ==========================
+CRT SCANLINE
+========================== */
 
 
 .scanline{
+
 
     position:absolute;
 
     inset:0;
 
-    pointer-events:none;
 
     z-index:50;
+
+
+    pointer-events:none;
 
 
     background:
 
     repeating-linear-gradient(
 
-        to bottom,
+    to bottom,
 
-        rgba(255,255,255,.05),
+    rgba(255,255,255,.05),
 
-        rgba(255,255,255,.05) 2px,
+    rgba(255,255,255,.05) 2px,
 
-        transparent 2px,
+    transparent 2px,
 
-        transparent 5px
+    transparent 5px
 
     );
+
 
 }
 
@@ -169,36 +175,46 @@ background-position:
 
 
 
-/* =================================
-   SCREEN SYSTEM
-================================= */
+/* ==========================
+SCREEN SYSTEM
+========================== */
 
 
 .screen{
 
+
     display:none;
 
+
     position:absolute;
+
 
     inset:0;
 
 
     width:100%;
 
+
     height:100%;
+
 
 
     align-items:center;
 
+
     justify-content:center;
 
+
     flex-direction:column;
+
 
 
     text-align:center;
 
 
+
     padding:20px;
+
 
 
 }
@@ -207,7 +223,9 @@ background-position:
 
 .screen.active{
 
+
     display:flex;
+
 
 }
 
@@ -217,54 +235,55 @@ background-position:
 
 
 
-/* =================================
-   START SCREEN
-================================= */
+/* ==========================
+START SCREEN
+========================== */
 
 
 .logo h1{
 
 
-    font-size:
+font-size:
 
-    clamp(24px,8vw,55px);
-
-
-    line-height:1.5;
+clamp(24px,8vw,55px);
 
 
-    color:#ffe600;
+line-height:1.5;
 
 
-    text-shadow:
-
-    5px 5px 0 black;
+color:#ffe600;
 
 
-    animation:
+text-shadow:
 
-    titleGlow 1.5s infinite alternate;
+5px 5px black;
+
+
+animation:
+
+titleGlow 1.5s infinite alternate;
 
 
 }
-
 
 
 
 .logo p{
 
 
-    margin-top:25px;
+margin-top:25px;
 
 
-    font-size:
+font-size:
 
-    clamp(11px,3vw,18px);
+clamp(11px,3vw,18px);
 
 
-    color:#00ffff;
+color:#00ffff;
+
 
 }
+
 
 
 
@@ -285,6 +304,7 @@ filter:brightness(1.8);
 
 }
 
+
 }
 
 
@@ -294,46 +314,52 @@ filter:brightness(1.8);
 
 
 
-/* =================================
-   BUTTON
-================================= */
+/* ==========================
+BUTTON
+========================== */
 
 
 button{
 
 
-    margin-top:30px;
+font-family:'Press Start 2P';
 
 
-    padding:
+font-size:
 
-    clamp(10px,3vw,18px)
-
-    clamp(15px,5vw,30px);
+clamp(10px,3vw,16px);
 
 
-    font-family:'Press Start 2P';
+
+padding:
+
+clamp(10px,3vw,18px)
+
+clamp(15px,5vw,30px);
 
 
-    font-size:
 
-    clamp(10px,3vw,16px);
-
-
-    background:#ffcc00;
+margin-top:30px;
 
 
-    border:
 
-    5px solid white;
-
-
-    box-shadow:
-
-    8px 8px 0 black;
+background:#ffcc00;
 
 
-    cursor:pointer;
+
+border:
+
+5px solid white;
+
+
+
+box-shadow:
+
+8px 8px black;
+
+
+
+cursor:pointer;
 
 
 }
@@ -343,14 +369,14 @@ button{
 button:active{
 
 
-    transform:
+transform:
 
-    translate(5px,5px);
+translate(5px,5px);
 
 
-    box-shadow:
+box-shadow:
 
-    3px 3px 0 black;
+3px 3px black;
 
 
 }
@@ -362,15 +388,15 @@ button:active{
 .blink{
 
 
-    margin-top:35px;
+margin-top:35px;
 
 
-    font-size:12px;
+font-size:12px;
 
 
-    animation:
+animation:
 
-    blink 1s infinite;
+blink 1s infinite;
 
 
 }
@@ -378,6 +404,7 @@ button:active{
 
 
 @keyframes blink{
+
 
 50%{
 
@@ -394,29 +421,31 @@ opacity:0;
 
 
 
-/* =================================
-   STORY AREA
-================================= */
+/* ==========================
+STORY
+========================== */
 
 
 #character{
 
 
-    height:
+height:
 
-    clamp(80px,15vh,150px);
-
-
-    display:flex;
+clamp(70px,15vh,150px);
 
 
-    justify-content:center;
+
+display:flex;
 
 
-    align-items:center;
+align-items:center;
+
+
+justify-content:center;
 
 
 }
+
 
 
 
@@ -424,29 +453,29 @@ opacity:0;
 .pixel-boy img{
 
 
-    width:
+width:
 
-    clamp(70px,20vw,150px);
-
-
-    height:auto;
+clamp(70px,20vw,150px);
 
 
-    image-rendering:pixelated;
+height:auto;
 
 
-    filter:
-
-    drop-shadow(4px 4px 0 black);
+image-rendering:pixelated;
 
 
-    animation:
+filter:
 
-    float 1s infinite alternate;
+drop-shadow(4px 4px black);
+
+
+
+animation:
+
+float 1s infinite alternate;
 
 
 }
-
 
 
 
@@ -455,21 +484,20 @@ opacity:0;
 
 from{
 
-transform:
-translateY(0);
+transform:translateY(0);
 
 }
 
 
 to{
 
-transform:
-translateY(-15px);
+transform:translateY(-15px);
 
 }
 
 
 }
+
 
 
 
@@ -478,27 +506,24 @@ translateY(-15px);
 #storyBox{
 
 
-    width:
+width:
 
-    min(92vw,700px);
-
-
-    max-height:85vh;
+min(92vw,700px);
 
 
-    display:flex;
+max-height:85vh;
 
 
-    flex-direction:column;
+display:flex;
 
 
-    align-items:center;
+flex-direction:column;
 
 
-    justify-content:center;
+align-items:center;
 
 
-    overflow:hidden;
+justify-content:center;
 
 
 }
@@ -506,42 +531,46 @@ translateY(-15px);
 
 
 
+
 #storyText{
 
 
-    width:100%;
+width:100%;
 
 
-    font-size:
+font-size:
 
-    clamp(12px,3.8vw,24px);
-
-
-    line-height:1.7;
+clamp(12px,3.8vw,24px);
 
 
-    max-height:42vh;
+line-height:1.7;
 
 
-    overflow-y:auto;
+max-height:42vh;
+
+
+overflow-y:auto;
+
+
 
 -webkit-overflow-scrolling:touch;
+
 
 touch-action:pan-y;
 
 
-    padding:15px;
+
+padding:15px;
 
 
-    text-shadow:
 
-    3px 3px black;
+text-shadow:
 
-
-    word-break:break-word;
+3px 3px black;
 
 
-    scrollbar-width:thin;
+
+word-break:break-word;
 
 
 }
@@ -550,14 +579,19 @@ touch-action:pan-y;
 
 #storyText::-webkit-scrollbar{
 
+
 width:5px;
 
+
 }
+
 
 
 #storyText::-webkit-scrollbar-thumb{
 
+
 background:#00ffff;
+
 
 }
 
@@ -567,58 +601,66 @@ background:#00ffff;
 
 
 
-/* =================================
-   NEXT BUTTON
-================================= */
+/* ==========================
+NEXT BUTTON
+========================== */
 
 
 #nextButton,
 #restartButton{
 
 
-    margin-top:20px;
+margin-top:20px;
 
 
-    padding:
+padding:
 
-    15px 25px;
-
-
-    font-size:14px;
+15px 25px;
 
 
-    background:#00ff88;
+
+font-size:14px;
 
 
-    border:
 
-    4px solid white;
+background:#00ff88;
 
 
-    box-shadow:
 
-    5px 5px black;
+border:
+
+4px solid white;
+
+
+
+box-shadow:
+
+5px 5px black;
+
+
+
+z-index:100;
 
 
 }
 
 
 
-
-#nextButton:hover,
-#restartButton:hover{
+#nextButton:hover{
 
 
-    background:#ffff00;
+background:#ffff00;
+
 
 }
-
 
 
 
 #restartButton{
 
-    background:#ff66cc;
+
+background:#ff66cc;
+
 
 }
 
@@ -628,71 +670,81 @@ background:#00ffff;
 
 
 
-/* =================================
-   STORY PROGRESS
-================================= */
+/* ==========================
+STORY PROGRESS
+========================== */
 
 
 #loadingBar{
 
 
-    width:100%;
+width:100%;
 
 
-    height:22px;
+height:22px;
 
 
-    border:
 
-    4px solid white;
+border:
 
-
-    background:black;
+4px solid white;
 
 
-    margin-top:20px;
+
+background:black;
+
+
+
+margin-top:20px;
 
 
 }
+
 
 
 
 #loadingProgress{
 
 
-    width:0%;
+height:100%;
 
 
-    height:100%;
+width:0%;
 
 
-    background:
 
-    linear-gradient(
-    90deg,
-    #00ff66,
-    #ffff00
-    );
+background:
+
+linear-gradient(
+90deg,
+#00ff66,
+#ffff00
+);
 
 
-    transition:
 
-    width 1s;
+transition:
+
+width 1s;
+
 
 }
+
+
 
 
 
 #stage{
 
 
-    margin-top:15px;
+margin-top:15px;
 
 
-    color:#00ffff;
+font-size:12px;
 
 
-    font-size:12px;
+color:#00ffff;
+
 
 }
 
@@ -702,57 +754,64 @@ background:#00ffff;
 
 
 
-/* =================================
-   EMERGENCY SCREEN
-================================= */
+/* ==========================
+EMERGENCY
+========================== */
 
 
 #emergencyScreen{
 
 
-    animation:
+animation:
 
-    emergencyFlash 1s infinite;
+emergencyFlash 1s infinite;
 
 
 }
+
 
 
 
 .siren{
 
 
-    font-size:
+font-size:
 
-    clamp(45px,15vw,80px);
+clamp(45px,15vw,80px);
 
 
-    animation:
 
-    shake .3s infinite;
+animation:
+
+shake .3s infinite;
 
 
 }
+
+
 
 
 
 #emergencyScreen h2{
 
 
-    font-size:
+font-size:
 
-    clamp(22px,7vw,50px);
-
-
-    color:red;
+clamp(22px,7vw,50px);
 
 
-    text-shadow:
 
-    4px 4px black;
+color:red;
+
+
+
+text-shadow:
+
+4px 4px black;
 
 
 }
+
 
 
 
@@ -779,8 +838,8 @@ background:#300;
 
 }
 
-}
 
+}
 
 
 
@@ -816,25 +875,27 @@ transform:translateX(-5px);
 
 
 
-/* =================================
-   ENDING
-================================= */
+/* ==========================
+ENDING
+========================== */
 
 
 .firework{
 
 
-    font-size:
+font-size:
 
-    clamp(50px,15vw,90px);
+clamp(50px,15vw,90px);
 
 
-    animation:
 
-    explode 1s infinite alternate;
+animation:
+
+explode 1s infinite alternate;
 
 
 }
+
 
 
 
@@ -842,23 +903,28 @@ transform:translateX(-5px);
 .birthday{
 
 
-    font-size:
+font-size:
 
-    clamp(28px,10vw,70px);
-
-
-    line-height:1.4;
+clamp(28px,10vw,70px);
 
 
-    color:#ffd900;
+
+line-height:1.4;
 
 
-    text-shadow:
 
-    6px 6px black;
+color:#ffd900;
+
+
+
+text-shadow:
+
+6px 6px black;
+
 
 
 }
+
 
 
 
@@ -878,6 +944,7 @@ transform:scale(1.2);
 
 }
 
+
 }
 
 
@@ -887,15 +954,19 @@ transform:scale(1.2);
 
 
 
-/* =================================
-   CONFETTI
-================================= */
+/* ==========================
+CONFETTI
+========================== */
 
 
 .confetti{
 
 
-    z-index:100;
+position:absolute;
+
+
+z-index:200;
+
 
 }
 
@@ -910,7 +981,6 @@ from{
 transform:
 
 translateY(-20px)
-
 rotate(0deg);
 
 
@@ -923,7 +993,6 @@ to{
 transform:
 
 translateY(110vh)
-
 rotate(360deg);
 
 
@@ -938,50 +1007,60 @@ rotate(360deg);
 
 
 
-/* =================================
-   LOADING SCREEN
-================================= */
+
+/* ==========================
+LOADING SCREEN
+========================== */
 
 
 #loadingScreen{
 
 
-    position:fixed;
+position:fixed;
 
 
-    inset:0;
+inset:0;
 
 
-    z-index:99999;
+
+z-index:99999;
 
 
-    display:flex;
+
+display:flex;
 
 
-    align-items:center;
+
+align-items:center;
 
 
-    justify-content:center;
+
+justify-content:center;
 
 
-    flex-direction:column;
+
+flex-direction:column;
 
 
-    text-align:center;
+
+text-align:center;
 
 
-    background:
 
-    linear-gradient(
-    180deg,
-    #101050,
-    #05051a
-    );
+background:
 
 
-    transition:
+linear-gradient(
+180deg,
+#101050,
+#05051a
+);
 
-    opacity 1s ease;
+
+
+transition:
+
+opacity 1s ease;
 
 
 }
@@ -1004,7 +1083,9 @@ inset:0;
 pointer-events:none;
 
 
+
 background:
+
 
 repeating-linear-gradient(
 
@@ -1021,7 +1102,9 @@ transparent 5px
 );
 
 
+
 }
+
 
 
 
@@ -1029,114 +1112,122 @@ transparent 5px
 .loading-title{
 
 
-    font-size:
+font-size:
 
-    clamp(22px,7vw,45px);
-
-
-    line-height:1.5;
+clamp(22px,7vw,45px);
 
 
-    color:#ffd900;
+
+line-height:1.5;
 
 
-    text-shadow:
 
-    5px 5px black;
+color:#ffd900;
+
+
+
+text-shadow:
+
+5px 5px black;
+
 
 
 }
-
 
 
 
 .loading-text{
 
 
-    margin-top:35px;
+margin-top:35px;
 
 
-    font-size:
+font-size:
 
-    clamp(12px,3vw,20px);
+clamp(12px,3vw,20px);
+
+
 
 }
-
 
 
 
 .loading-bar{
 
 
-    width:80%;
+width:80%;
 
 
-    max-width:500px;
+max-width:500px;
 
 
-    height:25px;
+
+height:25px;
 
 
-    border:
 
-    4px solid white;
+border:
 
-
-    margin-top:25px;
+4px solid white;
 
 
-    background:black;
+
+margin-top:25px;
+
+
+
+background:black;
+
 
 
 }
-
 
 
 
 #loadingFill{
 
 
-    height:100%;
+height:100%;
 
 
-    width:0%;
+width:0%;
 
 
-    background:
 
-    linear-gradient(
-    90deg,
-    #00ff88,
-    #ffff00
-    );
+background:
+
+linear-gradient(
+90deg,
+#00ff88,
+#ffff00
+);
+
 
 
 }
-
 
 
 
 #loadingPercent{
 
 
-    margin-top:15px;
+margin-top:15px;
 
 
-    color:#00ffff;
+color:#00ffff;
 
 
 }
-
 
 
 
 #loadingStatus{
 
 
-    margin-top:20px;
+margin-top:20px;
 
 
-    font-size:12px;
+font-size:12px;
 
 
 }
@@ -1147,12 +1238,13 @@ transparent 5px
 
 
 
-/* =================================
-   SMALL MOBILE
-================================= */
+/* ==========================
+MOBILE
+========================== */
 
 
 @media(max-width:600px){
+
 
 
 .logo h1{
@@ -1165,7 +1257,9 @@ font-size:25px;
 
 .pixel-boy img{
 
-width:80%;
+
+width:90px;
+
 
 }
 
@@ -1173,7 +1267,9 @@ width:80%;
 
 #storyText{
 
+
 font-size:13px;
+
 
 }
 
@@ -1181,41 +1277,41 @@ font-size:13px;
 
 button{
 
+
 font-size:11px;
 
+
+}
+
+
+
 }
 
 
-
-}
 
 
 
 @media(max-height:700px){
 
 
+
 #character{
 
-height:70px;
+
+height:60px;
+
 
 }
+
 
 
 #storyText{
 
+
 max-height:35vh;
 
-}
-
 
 }
 
-#storyText,
-#nextButton,
-#restartButton{
-
-position:relative;
-
-z-index:100;
 
 }
