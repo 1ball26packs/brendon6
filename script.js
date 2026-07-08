@@ -4,6 +4,12 @@
 // ======================================
 
 
+
+// ===============================
+// ELEMENT REFERENCES
+// ===============================
+
+
 const startButton =
 document.getElementById("startButton");
 
@@ -36,8 +42,20 @@ const stage =
 document.getElementById("stage");
 
 
+const nextButton =
+document.getElementById("nextButton");
+
+
+const restartButton =
+document.getElementById("restartButton");
+
+
 const music =
 document.getElementById("backgroundMusic");
+
+
+
+let currentScene = 0;
 
 
 
@@ -55,7 +73,6 @@ const scenes = [
 stage:"STAGE 1 - PLAYER PROFILE",
 
 text:
-
 `
 👦 PLAYER FOUND
 
@@ -64,16 +81,26 @@ Name:
 Brendon Baskara
 Adinegara Siswanto
 
+
 Nickname:
-⭐ Brendon ⭐
+
+⭐ Brendon
+⭐ Tole
+⭐ Ade
+⭐ Sule
+
 
 Level:
+
 6 Years Old
 
+
 Birthday:
+
 8 July 2020
 `
 },
+
 
 
 
@@ -81,13 +108,15 @@ Birthday:
 stage:"STAGE 2 - CREATIVE WORLD",
 
 text:
-
 `
 ✂️ SKILL UNLOCKED
 
+
 CRAFT MASTER
 
+
 Brendon loves creating:
+
 
 📄 Paper Art
 
@@ -97,12 +126,16 @@ Brendon loves creating:
 
 📏 Tape
 
+
 ✨ Imagination
 
+
 Creativity Level:
+
 MAXIMUM!
 `
 },
+
 
 
 
@@ -110,26 +143,30 @@ MAXIMUM!
 stage:"STAGE 3 - EMERGENCY CITY",
 
 text:
-
 `
 🚨 FAVORITE MODE
 
-Emergency World
 
-Brendon loves everything about:
+EMERGENCY WORLD
 
-🚓 Police
+
+Brendon loves:
+
+🚨 Siren Sound
 
 🚑 Ambulance
 
 🚒 Fire Truck
 
-🚨 Siren Sound
+🚓 Police
+
 
 MISSION:
+
 Explore Emergency City!
 `
 },
+
 
 
 
@@ -137,11 +174,12 @@ Explore Emergency City!
 stage:"STAGE 4 - DREAM MISSION",
 
 text:
-
 `
 ⭐ FUTURE QUEST
 
+
 Become:
+
 
 ✨ Smart Kid
 
@@ -151,10 +189,13 @@ Become:
 
 ✨ Loving Everyone
 
+
 Keep growing,
+
 Brendon!
 `
 },
+
 
 
 
@@ -162,9 +203,9 @@ Brendon!
 stage:"STAGE 5 - ACHIEVEMENT",
 
 text:
-
 `
 🏆 ACHIEVEMENT UNLOCKED
+
 
 ⭐ Creative Kid
 
@@ -174,11 +215,15 @@ text:
 
 ⭐ Future Genius
 
+
 LEVEL COMPLETE!
 `
 }
 
+
+
 ];
+
 
 
 
@@ -202,7 +247,8 @@ let i=0;
 let clean=text.replace(/\n/g,"<br>");
 
 
-let interval=setInterval(()=>{
+
+let timer=setInterval(()=>{
 
 
 element.innerHTML =
@@ -217,10 +263,11 @@ i++;
 if(i>clean.length){
 
 
-clearInterval(interval);
+clearInterval(timer);
 
 
 }
+
 
 
 },speed);
@@ -228,6 +275,7 @@ clearInterval(interval);
 
 
 }
+
 
 
 
@@ -244,15 +292,11 @@ startButton.onclick=function(){
 
 
 
-// aktifkan musik
-
 music.volume=.5;
 
 
 music.play()
 .catch(()=>{});
-
-
 
 
 
@@ -263,7 +307,10 @@ storyScreen.classList.add("active");
 
 
 
-playScenes(0);
+currentScene=0;
+
+
+playScenes(currentScene);
 
 
 
@@ -275,8 +322,10 @@ playScenes(0);
 
 
 
+
+
 // ======================================
-// PLAY STORY
+// STORY SYSTEM
 // ======================================
 
 
@@ -302,7 +351,8 @@ let current=scenes[index];
 
 
 
-stage.innerHTML=current.stage;
+stage.innerHTML =
+current.stage;
 
 
 
@@ -312,26 +362,66 @@ progress.style.width =
 
 
 
+
 typeWriter(
+
 current.text,
+
 storyText
+
 );
 
 
 
 
 
-setTimeout(()=>{
+if(index === scenes.length-1){
 
 
-playScenes(index+1);
+nextButton.innerHTML=
+"🎂 CELEBRATE";
 
 
-},6500);
+}
+
+else{
+
+
+nextButton.innerHTML=
+"NEXT ▶";
+
+
+}
 
 
 
 }
+
+
+
+
+
+
+
+
+// ======================================
+// NEXT BUTTON
+// ======================================
+
+
+nextButton.onclick=function(){
+
+
+
+currentScene++;
+
+
+playScenes(currentScene);
+
+
+
+};
+
 
 
 
@@ -381,7 +471,7 @@ showEnding();
 
 
 // ======================================
-// ENDING CINEMATIC
+// ENDING
 // ======================================
 
 
@@ -391,9 +481,7 @@ function showEnding(){
 endingScreen.classList.add("active");
 
 
-
 createConfetti();
-
 
 
 }
@@ -404,8 +492,51 @@ createConfetti();
 
 
 
+
 // ======================================
-// CONFETTI EFFECT
+// PLAY AGAIN
+// ======================================
+
+
+restartButton.onclick=function(){
+
+
+
+endingScreen.classList.remove("active");
+
+
+startScreen.classList.add("active");
+
+
+
+currentScene=0;
+
+
+progress.style.width="0%";
+
+
+storyText.innerHTML="";
+
+
+music.pause();
+
+
+music.currentTime=0;
+
+
+
+};
+
+
+
+
+
+
+
+
+
+// ======================================
+// CONFETTI
 // ======================================
 
 
@@ -413,36 +544,53 @@ function createConfetti(){
 
 
 
+document
+.querySelectorAll(".confetti")
+.forEach(e=>e.remove());
+
+
+
 for(let i=0;i<80;i++){
 
 
-let c=document.createElement("div");
+
+let c =
+document.createElement("div");
+
+
+
+c.className="confetti";
 
 
 c.innerHTML="✨";
 
 
+
 c.style.position="absolute";
 
 
-c.style.left=
+c.style.left =
 Math.random()*100+"vw";
 
 
 c.style.top="-20px";
 
 
-c.style.fontSize=
+c.style.fontSize =
+
 (10+Math.random()*30)+"px";
 
 
 
-c.style.animation=
-"fall "+
+c.style.animation =
 
+"fall "
+
++
 (2+Math.random()*4)
 
-+"s linear";
++
+"s linear";
 
 
 
@@ -461,8 +609,281 @@ endingScreen.appendChild(c);
 
 
 
+
+
+
 // ======================================
-// MOBILE SCREEN LOCK
+// REAL ASSET LOADER
+// ======================================
+
+
+const assets=[
+
+
+"assets/brendon.gif",
+
+"assets/music.mp3"
+
+
+];
+
+
+
+const loadingScreen =
+document.getElementById("loadingScreen");
+
+
+const loadingFill =
+document.getElementById("loadingFill");
+
+
+const loadingPercent =
+document.getElementById("loadingPercent");
+
+
+const loadingStatus =
+document.getElementById("loadingStatus");
+
+
+
+let loadedAssets=0;
+
+
+
+
+
+
+function updateLoading(){
+
+
+
+let percent = Math.floor(
+
+
+(loadedAssets / assets.length)
+*100
+
+
+);
+
+
+
+loadingFill.style.width =
+percent+"%";
+
+
+loadingPercent.innerHTML =
+percent+"%";
+
+
+
+}
+
+
+
+
+
+
+
+
+function loadAsset(url){
+
+
+return new Promise(resolve=>{
+
+
+let element;
+
+
+
+if(url.endsWith(".mp3")){
+
+
+element =
+new Audio();
+
+
+
+element.oncanplaythrough=function(){
+
+
+loadedAssets++;
+
+updateLoading();
+
+
+resolve();
+
+
+};
+
+
+
+element.onerror=function(){
+
+
+console.log(
+"Gagal audio:",
+url
+);
+
+
+loadedAssets++;
+
+updateLoading();
+
+
+resolve();
+
+
+};
+
+
+
+element.src=url;
+
+
+
+}
+
+else{
+
+
+
+element =
+new Image();
+
+
+
+element.onload=function(){
+
+
+loadedAssets++;
+
+
+updateLoading();
+
+
+resolve();
+
+
+};
+
+
+
+element.onerror=function(){
+
+
+console.log(
+"Gagal image:",
+url
+);
+
+
+
+loadedAssets++;
+
+
+updateLoading();
+
+
+resolve();
+
+
+};
+
+
+
+element.src=url;
+
+
+
+}
+
+
+
+});
+
+}
+
+
+
+
+
+
+
+
+async function startLoading(){
+
+
+
+loadingStatus.innerHTML=
+"Loading Pixel Assets...";
+
+
+
+for(let asset of assets){
+
+
+loadingStatus.innerHTML=
+"Loading : "+asset;
+
+
+
+await loadAsset(asset);
+
+
+
+}
+
+
+
+loadingStatus.innerHTML=
+"SYSTEM READY!";
+
+
+
+setTimeout(()=>{
+
+
+loadingScreen.style.opacity="0";
+
+
+
+setTimeout(()=>{
+
+
+loadingScreen.remove();
+
+
+
+},1000);
+
+
+
+},1200);
+
+
+
+}
+
+
+
+
+
+
+window.addEventListener(
+"load",
+startLoading
+);
+
+
+
+
+
+
+// ======================================
+// MOBILE TOUCH CONTROL
 // ======================================
 
 
