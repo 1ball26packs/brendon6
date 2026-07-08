@@ -459,11 +459,7 @@ opacity:0;
 
     width:
 
-    clamp(70px,20vw,150px);
-
-
-    height:auto;
-
+    
 
 
     image-rendering:pixelated;
@@ -1305,6 +1301,7 @@ font-size:25px;
 .pixel-boy img{
 
 width:80%;
+    height:auto;
 
 }
 
