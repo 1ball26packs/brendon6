@@ -1,62 +1,42 @@
 // ======================================
 // BRENDON PIXEL ADVENTURE
-// GAME ENGINE
+// GAME ENGINE FINAL
 // ======================================
-
 
 
 // ===============================
 // ELEMENT REFERENCES
 // ===============================
 
+const startButton = document.getElementById("startButton");
 
-const startButton =
-document.getElementById("startButton");
+const startScreen = document.getElementById("startScreen");
 
+const storyScreen = document.getElementById("storyScreen");
 
-const startScreen =
-document.getElementById("startScreen");
+const emergencyScreen = document.getElementById("emergencyScreen");
 
+const endingScreen = document.getElementById("endingScreen");
 
-const storyScreen =
-document.getElementById("storyScreen");
+const storyText = document.getElementById("storyText");
 
+const progress = document.getElementById("loadingProgress");
 
-const emergencyScreen =
-document.getElementById("emergencyScreen");
+const stage = document.getElementById("stage");
 
+const nextButton = document.getElementById("nextButton");
 
-const endingScreen =
-document.getElementById("endingScreen");
+const restartButton = document.getElementById("restartButton");
 
-
-const storyText =
-document.getElementById("storyText");
-
-
-const progress =
-document.getElementById("loadingProgress");
-
-
-const stage =
-document.getElementById("stage");
-
-
-const nextButton =
-document.getElementById("nextButton");
-
-
-const restartButton =
-document.getElementById("restartButton");
-
-
-const music =
-document.getElementById("backgroundMusic");
+const music = document.getElementById("backgroundMusic");
 
 
 
 let currentScene = 0;
 
+let typingTimer = null;
+
+let gameStarted = false;
 
 
 
@@ -64,7 +44,7 @@ let currentScene = 0;
 
 
 // ======================================
-// DATA BRENDON
+// BRENDON DATA
 // ======================================
 
 
@@ -79,32 +59,43 @@ text:`
 👦 PLAYER FOUND
 
 
-Name:
+NAME:
+
 
 Brendon Baskara
+
 Adinegara Siswanto
 
 
-Nickname:
+
+NICKNAME:
+
 
 ⭐ Brendon
+
 ⭐ Tole
+
 ⭐ Ade
+
 ⭐ Sule
 
 
-Level:
 
-6 Years Old
+LEVEL:
 
 
-Birthday:
+6 YEARS OLD
+
+
+
+BIRTHDAY:
+
 
 8 July 2020
 
-
 `
 },
+
 
 
 
@@ -119,25 +110,31 @@ text:`
 CRAFT MASTER
 
 
+
 Brendon loves creating:
 
 
 📄 Paper Art
 
+
 📦 Cardboard Creation
+
 
 ✂️ Scissors
 
+
 📏 Tape
+
 
 
 ✨ Imagination
 
 
-Creativity Level:
+
+CREATIVITY LEVEL:
+
 
 MAXIMUM!
-
 
 `
 },
@@ -156,22 +153,27 @@ text:`
 EMERGENCY WORLD
 
 
+
 Brendon loves:
 
 
 🚨 Siren Sound
 
+
 🚑 Ambulance
 
+
 🚒 Fire Truck
+
 
 🚓 Police
 
 
+
 MISSION:
 
-Explore Emergency City!
 
+Explore Emergency City!
 
 `
 },
@@ -187,22 +189,27 @@ text:`
 ⭐ FUTURE QUEST
 
 
+
 Become:
 
 
 ✨ Smart Kid
 
+
 ✨ Diligent Student
 
+
 ✨ Sunday School Hero
+
 
 ✨ Loving Everyone
 
 
+
 Keep growing,
 
-Brendon!
 
+Brendon!
 
 `
 },
@@ -218,21 +225,24 @@ text:`
 🏆 ACHIEVEMENT UNLOCKED
 
 
+
 ⭐ Creative Kid
+
 
 ⭐ Curious Explorer
 
+
 ⭐ Kind Heart
+
 
 ⭐ Future Genius
 
 
-LEVEL COMPLETE!
 
+LEVEL COMPLETE!
 
 `
 }
-
 
 
 ];
@@ -250,24 +260,33 @@ LEVEL COMPLETE!
 // ======================================
 
 
-function typeWriter(text, element, speed=35){
+function typeWriter(text,element,speed=35){
+
+
+
+if(typingTimer){
+
+clearInterval(typingTimer);
+
+}
+
 
 
 element.innerHTML="";
 
 
+
 let i=0;
 
 
-let clean =
-text.replace(/\n/g,"<br>");
+let clean=text.replace(/\n/g,"<br>");
 
 
 
-let timer=setInterval(()=>{
+typingTimer=setInterval(()=>{
 
 
-element.innerHTML =
+element.innerHTML=
 clean.substring(0,i);
 
 
@@ -276,13 +295,14 @@ i++;
 
 
 
-if(i > clean.length){
+if(i>clean.length){
 
 
-clearInterval(timer);
+clearInterval(typingTimer);
 
 
 }
+
 
 
 },speed);
@@ -290,6 +310,7 @@ clearInterval(timer);
 
 
 }
+
 
 
 
@@ -307,34 +328,46 @@ clearInterval(timer);
 function openFullscreen(){
 
 
-const elem =
-document.documentElement;
+let elem=document.documentElement;
 
+
+
+try{
 
 
 if(elem.requestFullscreen){
 
-
 elem.requestFullscreen();
-
 
 }
 
 else if(elem.webkitRequestFullscreen){
 
-
 elem.webkitRequestFullscreen();
-
 
 }
 
 else if(elem.msRequestFullscreen){
 
-
 elem.msRequestFullscreen();
+
+}
+
 
 
 }
+
+catch(e){
+
+
+console.log(
+"Fullscreen tidak tersedia",
+e
+);
+
+
+}
+
 
 
 }
@@ -352,43 +385,72 @@ elem.msRequestFullscreen();
 // ======================================
 
 
-startButton.onclick=function(){
+startButton.addEventListener(
+"click",
+async function(){
 
 
 
-// FULLSCREEN
+if(gameStarted)
+return;
+
+
+
+gameStarted=true;
+
+
 
 openFullscreen();
 
 
 
-// MUSIC
-
-music.volume=.5;
-
-
-music.play()
-.catch(()=>{});
+music.volume=0.5;
 
 
 
-// CHANGE SCREEN
-
-startScreen.classList.remove("active");
+try{
 
 
-storyScreen.classList.add("active");
+await music.play();
+
+
+}
+
+catch(e){
+
+
+console.log(
+"Music menunggu interaksi"
+);
+
+
+}
+
+
+
+startScreen.classList.remove(
+"active"
+);
+
+
+
+storyScreen.classList.add(
+"active"
+);
 
 
 
 currentScene=0;
 
 
+
 playScenes(currentScene);
 
 
 
-};
+}
+
+);
 
 
 
@@ -420,22 +482,22 @@ return;
 
 
 
-let current =
-scenes[index];
+
+let current=scenes[index];
 
 
 
-stage.innerHTML =
-current.stage;
+stage.innerHTML=current.stage;
 
 
 
-progress.style.width =
+progress.style.width=
 
 ((index+1)
 /scenes.length*100)
 
 +"%";
+
 
 
 
@@ -449,11 +511,11 @@ storyText
 
 
 
+if(index===scenes.length-1){
 
-if(index === scenes.length-1){
 
+nextButton.innerHTML=
 
-nextButton.innerHTML =
 "🎂 CELEBRATE";
 
 
@@ -462,7 +524,8 @@ nextButton.innerHTML =
 else{
 
 
-nextButton.innerHTML =
+nextButton.innerHTML=
+
 "NEXT ▶";
 
 
@@ -481,22 +544,32 @@ nextButton.innerHTML =
 
 
 // ======================================
-// NEXT BUTTON
+// NEXT
 // ======================================
 
 
-nextButton.onclick=function(){
+nextButton.addEventListener(
+"click",
+function(){
+
+
+
+if(currentScene>=scenes.length)
+return;
 
 
 
 currentScene++;
 
 
+
 playScenes(currentScene);
 
 
 
-};
+}
+
+);
 
 
 
@@ -515,17 +588,26 @@ function showEmergency(){
 
 
 
-storyScreen.classList.remove("active");
+storyScreen.classList.remove(
+"active"
+);
 
 
-emergencyScreen.classList.add("active");
+
+emergencyScreen.classList.add(
+"active"
+);
+
 
 
 
 setTimeout(()=>{
 
 
-emergencyScreen.classList.remove("active");
+emergencyScreen.classList.remove(
+"active"
+);
+
 
 
 showEnding();
@@ -554,10 +636,14 @@ showEnding();
 function showEnding(){
 
 
-endingScreen.classList.add("active");
+endingScreen.classList.add(
+"active"
+);
+
 
 
 createConfetti();
+
 
 
 }
@@ -575,14 +661,21 @@ createConfetti();
 // ======================================
 
 
-restartButton.onclick=function(){
+restartButton.addEventListener(
+"click",
+function(){
 
 
 
-endingScreen.classList.remove("active");
+endingScreen.classList.remove(
+"active"
+);
 
 
-startScreen.classList.add("active");
+
+startScreen.classList.add(
+"active"
+);
 
 
 
@@ -590,10 +683,20 @@ currentScene=0;
 
 
 
+gameStarted=false;
+
+
+
 progress.style.width="0%";
 
 
+
 storyText.innerHTML="";
+
+
+
+stage.innerHTML="STAGE 1";
+
 
 
 music.pause();
@@ -603,7 +706,15 @@ music.currentTime=0;
 
 
 
-};
+document
+.querySelectorAll(".confetti")
+.forEach(e=>e.remove());
+
+
+
+}
+
+);
 
 
 
@@ -631,8 +742,7 @@ document
 for(let i=0;i<80;i++){
 
 
-let c =
-document.createElement("div");
+let c=document.createElement("div");
 
 
 c.className="confetti";
@@ -641,28 +751,28 @@ c.className="confetti";
 c.innerHTML="✨";
 
 
-
 c.style.position="absolute";
 
 
-c.style.left =
+c.style.left=
 Math.random()*100+"vw";
 
 
 c.style.top="-20px";
 
 
-c.style.fontSize =
+c.style.fontSize=
 (10+Math.random()*30)+"px";
 
 
 
-c.style.animation =
-"fall "
-+
+c.style.animation=
+
+"fall "+
+
 (2+Math.random()*4)
-+
-"s linear";
+
++"s linear";
 
 
 
@@ -685,36 +795,45 @@ endingScreen.appendChild(c);
 
 
 // ======================================
-// REAL ASSET LOADER
+// ASSET LOADER
 // ======================================
 
 
 const assets=[
 
-
 "assets/brendon.gif",
 
 "assets/music.mp3"
-
 
 ];
 
 
 
-const loadingScreen =
-document.getElementById("loadingScreen");
+const loadingScreen=
+document.getElementById(
+"loadingScreen"
+);
 
 
-const loadingFill =
-document.getElementById("loadingFill");
+
+const loadingFill=
+document.getElementById(
+"loadingFill"
+);
 
 
-const loadingPercent =
-document.getElementById("loadingPercent");
+
+const loadingPercent=
+document.getElementById(
+"loadingPercent"
+);
 
 
-const loadingStatus =
-document.getElementById("loadingStatus");
+
+const loadingStatus=
+document.getElementById(
+"loadingStatus"
+);
 
 
 
@@ -725,22 +844,24 @@ let loadedAssets=0;
 
 
 
+
 function updateLoading(){
 
 
-let percent = Math.floor(
 
-(loadedAssets/assets.length)*100
+let percent=Math.floor(
+
+loadedAssets/assets.length*100
 
 );
 
 
 
-loadingFill.style.width =
+loadingFill.style.width=
 percent+"%";
 
 
-loadingPercent.innerHTML =
+loadingPercent.innerHTML=
 percent+"%";
 
 
@@ -754,6 +875,7 @@ percent+"%";
 
 
 function loadAsset(url){
+
 
 
 return new Promise(resolve=>{
@@ -770,11 +892,14 @@ element=new Audio();
 
 
 
-element.oncanplaythrough=function(){
+element.preload="auto";
+
+
+
+element.onloadeddata=function(){
 
 
 loadedAssets++;
-
 
 updateLoading();
 
@@ -783,6 +908,7 @@ resolve();
 
 
 };
+
 
 
 element.onerror=function(){
@@ -790,7 +916,6 @@ element.onerror=function(){
 
 loadedAssets++;
 
-
 updateLoading();
 
 
@@ -798,6 +923,7 @@ resolve();
 
 
 };
+
 
 
 element.src=url;
@@ -818,7 +944,6 @@ element.onload=function(){
 
 loadedAssets++;
 
-
 updateLoading();
 
 
@@ -834,7 +959,6 @@ element.onerror=function(){
 
 loadedAssets++;
 
-
 updateLoading();
 
 
@@ -848,14 +972,15 @@ resolve();
 element.src=url;
 
 
+
 }
 
 
 
 });
 
-
 }
+
 
 
 
@@ -871,7 +996,9 @@ async function startLoading(){
 for(let asset of assets){
 
 
-loadingStatus.innerHTML =
+
+loadingStatus.innerHTML=
+
 "Loading : "+asset;
 
 
@@ -879,12 +1006,15 @@ loadingStatus.innerHTML =
 await loadAsset(asset);
 
 
+
 }
 
 
 
-loadingStatus.innerHTML =
+loadingStatus.innerHTML=
+
 "SYSTEM READY!";
+
 
 
 
@@ -911,6 +1041,7 @@ loadingScreen.remove();
 
 
 }
+
 
 
 
