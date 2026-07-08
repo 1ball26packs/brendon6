@@ -61,6 +61,8 @@ let currentScene = 0;
 
 
 
+
+
 // ======================================
 // DATA BRENDON
 // ======================================
@@ -72,9 +74,10 @@ const scenes = [
 {
 stage:"STAGE 1 - PLAYER PROFILE",
 
-text:
-`
+text:`
+
 👦 PLAYER FOUND
+
 
 Name:
 
@@ -98,17 +101,18 @@ Level:
 Birthday:
 
 8 July 2020
+
+
 `
 },
-
 
 
 
 {
 stage:"STAGE 2 - CREATIVE WORLD",
 
-text:
-`
+text:`
+
 ✂️ SKILL UNLOCKED
 
 
@@ -133,6 +137,8 @@ Brendon loves creating:
 Creativity Level:
 
 MAXIMUM!
+
+
 `
 },
 
@@ -142,8 +148,8 @@ MAXIMUM!
 {
 stage:"STAGE 3 - EMERGENCY CITY",
 
-text:
-`
+text:`
+
 🚨 FAVORITE MODE
 
 
@@ -151,6 +157,7 @@ EMERGENCY WORLD
 
 
 Brendon loves:
+
 
 🚨 Siren Sound
 
@@ -164,6 +171,8 @@ Brendon loves:
 MISSION:
 
 Explore Emergency City!
+
+
 `
 },
 
@@ -173,8 +182,8 @@ Explore Emergency City!
 {
 stage:"STAGE 4 - DREAM MISSION",
 
-text:
-`
+text:`
+
 ⭐ FUTURE QUEST
 
 
@@ -193,6 +202,8 @@ Become:
 Keep growing,
 
 Brendon!
+
+
 `
 },
 
@@ -202,8 +213,8 @@ Brendon!
 {
 stage:"STAGE 5 - ACHIEVEMENT",
 
-text:
-`
+text:`
+
 🏆 ACHIEVEMENT UNLOCKED
 
 
@@ -217,6 +228,8 @@ text:
 
 
 LEVEL COMPLETE!
+
+
 `
 }
 
@@ -230,8 +243,10 @@ LEVEL COMPLETE!
 
 
 
+
+
 // ======================================
-// TYPEWRITER EFFECT
+// TYPEWRITER
 // ======================================
 
 
@@ -244,7 +259,8 @@ element.innerHTML="";
 let i=0;
 
 
-let clean=text.replace(/\n/g,"<br>");
+let clean =
+text.replace(/\n/g,"<br>");
 
 
 
@@ -260,14 +276,13 @@ i++;
 
 
 
-if(i>clean.length){
+if(i > clean.length){
 
 
 clearInterval(timer);
 
 
 }
-
 
 
 },speed);
@@ -277,34 +292,55 @@ clearInterval(timer);
 }
 
 
+
+
+
+
+
+
+
 // ======================================
-// FULLSCREEN MODE
+// FULLSCREEN
 // ======================================
+
 
 function openFullscreen(){
 
-const elem = document.documentElement;
+
+const elem =
+document.documentElement;
+
 
 
 if(elem.requestFullscreen){
 
-    elem.requestFullscreen();
+
+elem.requestFullscreen();
+
 
 }
 
 else if(elem.webkitRequestFullscreen){
 
-    elem.webkitRequestFullscreen();
+
+elem.webkitRequestFullscreen();
+
 
 }
 
 else if(elem.msRequestFullscreen){
 
-    elem.msRequestFullscreen();
+
+elem.msRequestFullscreen();
+
 
 }
 
+
 }
+
+
+
 
 
 
@@ -319,13 +355,14 @@ else if(elem.msRequestFullscreen){
 startButton.onclick=function(){
 
 
-// aktifkan fullscreen
+
+// FULLSCREEN
 
 openFullscreen();
 
 
 
-// aktifkan musik
+// MUSIC
 
 music.volume=.5;
 
@@ -335,7 +372,7 @@ music.play()
 
 
 
-// pindah halaman
+// CHANGE SCREEN
 
 startScreen.classList.remove("active");
 
@@ -360,8 +397,9 @@ playScenes(currentScene);
 
 
 
+
 // ======================================
-// STORY SYSTEM
+// STORY ENGINE
 // ======================================
 
 
@@ -382,8 +420,8 @@ return;
 
 
 
-
-let current=scenes[index];
+let current =
+scenes[index];
 
 
 
@@ -394,8 +432,10 @@ current.stage;
 
 progress.style.width =
 
-((index+1)/scenes.length*100)+"%";
+((index+1)
+/scenes.length*100)
 
++"%";
 
 
 
@@ -410,11 +450,10 @@ storyText
 
 
 
-
 if(index === scenes.length-1){
 
 
-nextButton.innerHTML=
+nextButton.innerHTML =
 "🎂 CELEBRATE";
 
 
@@ -423,7 +462,7 @@ nextButton.innerHTML=
 else{
 
 
-nextButton.innerHTML=
+nextButton.innerHTML =
 "NEXT ▶";
 
 
@@ -432,6 +471,7 @@ nextButton.innerHTML=
 
 
 }
+
 
 
 
@@ -467,7 +507,7 @@ playScenes(currentScene);
 
 
 // ======================================
-// EMERGENCY SCREEN
+// EMERGENCY
 // ======================================
 
 
@@ -529,8 +569,9 @@ createConfetti();
 
 
 
+
 // ======================================
-// PLAY AGAIN
+// RESTART
 // ======================================
 
 
@@ -546,6 +587,7 @@ startScreen.classList.add("active");
 
 
 currentScene=0;
+
 
 
 progress.style.width="0%";
@@ -589,10 +631,8 @@ document
 for(let i=0;i<80;i++){
 
 
-
 let c =
 document.createElement("div");
-
 
 
 c.className="confetti";
@@ -613,18 +653,14 @@ c.style.top="-20px";
 
 
 c.style.fontSize =
-
 (10+Math.random()*30)+"px";
 
 
 
 c.style.animation =
-
 "fall "
-
 +
 (2+Math.random()*4)
-
 +
 "s linear";
 
@@ -692,13 +728,9 @@ let loadedAssets=0;
 function updateLoading(){
 
 
-
 let percent = Math.floor(
 
-
-(loadedAssets / assets.length)
-*100
-
+(loadedAssets/assets.length)*100
 
 );
 
@@ -721,7 +753,6 @@ percent+"%";
 
 
 
-
 function loadAsset(url){
 
 
@@ -735,8 +766,7 @@ let element;
 if(url.endsWith(".mp3")){
 
 
-element =
-new Audio();
+element=new Audio();
 
 
 
@@ -745,6 +775,7 @@ element.oncanplaythrough=function(){
 
 loadedAssets++;
 
+
 updateLoading();
 
 
@@ -752,19 +783,13 @@ resolve();
 
 
 };
-
 
 
 element.onerror=function(){
 
 
-console.log(
-"Gagal audio:",
-url
-);
-
-
 loadedAssets++;
+
 
 updateLoading();
 
@@ -773,7 +798,6 @@ resolve();
 
 
 };
-
 
 
 element.src=url;
@@ -785,9 +809,7 @@ element.src=url;
 else{
 
 
-
-element =
-new Image();
+element=new Image();
 
 
 
@@ -810,13 +832,6 @@ resolve();
 element.onerror=function(){
 
 
-console.log(
-"Gagal image:",
-url
-);
-
-
-
 loadedAssets++;
 
 
@@ -833,12 +848,12 @@ resolve();
 element.src=url;
 
 
-
 }
 
 
 
 });
+
 
 }
 
@@ -853,15 +868,10 @@ async function startLoading(){
 
 
 
-loadingStatus.innerHTML=
-"Loading Pixel Assets...";
-
-
-
 for(let asset of assets){
 
 
-loadingStatus.innerHTML=
+loadingStatus.innerHTML =
 "Loading : "+asset;
 
 
@@ -869,12 +879,11 @@ loadingStatus.innerHTML=
 await loadAsset(asset);
 
 
-
 }
 
 
 
-loadingStatus.innerHTML=
+loadingStatus.innerHTML =
 "SYSTEM READY!";
 
 
@@ -912,9 +921,3 @@ window.addEventListener(
 "load",
 startLoading
 );
-
-
-
-
-
-
