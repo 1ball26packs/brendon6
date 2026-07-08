@@ -5,7 +5,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" 
+<meta name="viewport"
 content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 
@@ -17,19 +17,22 @@ Brendon's Pixel Adventure
 <link rel="stylesheet" href="style.css">
 
 
-<!-- PRELOAD ASSET -->
 
-<link rel="preload" 
-href="assets/brendon.gif" 
+<!-- PRELOAD ASSETS -->
+
+<link rel="preload"
+href="assets/brendon.gif"
 as="image">
 
 
-<link rel="preload" 
-href="assets/music.mp3" 
+<link rel="preload"
+href="assets/music.mp3"
 as="audio">
 
 
+
 </head>
+
 
 
 <body>
@@ -91,17 +94,21 @@ as="audio">
 
 
 
+
+
 <!-- =========================
-     MAIN GAME
+     GAME AREA
 ========================= -->
 
 
-<div id="game">
+<main id="game">
 
 
 <div class="pixel-stars"></div>
 
 <div class="scanline"></div>
+
+
 
 
 
@@ -113,8 +120,9 @@ as="audio">
 
 
 <section 
-id="startScreen" 
+id="startScreen"
 class="screen active">
+
 
 
 <div class="logo">
@@ -141,11 +149,13 @@ PIXEL ADVENTURE
 
 
 
-<button id="startButton">
+<button 
+id="startButton">
 
 PRESS START
 
 </button>
+
 
 
 
@@ -172,9 +182,11 @@ INSERT COIN
 ========================= -->
 
 
-<section 
-id="storyScreen" 
+<section
+id="storyScreen"
 class="screen">
+
+
 
 
 
@@ -184,9 +196,12 @@ class="screen">
 <div class="pixel-boy">
 
 
-<img 
+<img
+
 src="assets/brendon.gif"
+
 alt="Brendon Pixel Character"
+
 loading="eager">
 
 
@@ -200,12 +215,12 @@ loading="eager">
 
 
 
+
 <div id="storyBox">
 
 
 
 <div id="storyText">
-
 
 </div>
 
@@ -213,13 +228,13 @@ loading="eager">
 
 
 
-<button id="nextButton">
 
+<button id="nextButton">
 
 NEXT ▶
 
-
 </button>
+
 
 
 
@@ -230,11 +245,11 @@ NEXT ▶
 
 <div id="loadingProgress">
 
-
 </div>
 
 
 </div>
+
 
 
 
@@ -242,11 +257,11 @@ NEXT ▶
 
 <div id="stage">
 
-
 STAGE 1
 
-
 </div>
+
+
 
 
 
@@ -265,13 +280,17 @@ STAGE 1
 
 
 <!-- =========================
-     EMERGENCY SCREEN
+     EMERGENCY WORLD
 ========================= -->
 
 
-<section 
-id="emergencyScreen" 
+<section
+id="emergencyScreen"
 class="screen">
+
+
+
+<div class="emergency-city">
 
 
 
@@ -283,7 +302,6 @@ class="screen">
 
 
 
-
 <h2>
 
 EMERGENCY WORLD
@@ -292,12 +310,15 @@ EMERGENCY WORLD
 
 
 
-
 <p>
 
 Brendon's Favorite!
 
 </p>
+
+
+
+</div>
 
 
 
@@ -316,9 +337,11 @@ Brendon's Favorite!
 ========================= -->
 
 
-<section 
-id="endingScreen" 
+<section
+id="endingScreen"
 class="screen">
+
+
 
 
 
@@ -327,6 +350,7 @@ class="screen">
 ✨ 🎆 ✨
 
 </div>
+
 
 
 
@@ -343,8 +367,8 @@ BIRTHDAY<br>
 BRENDON
 
 
-
 </h1>
+
 
 
 
@@ -378,6 +402,7 @@ Keep loving everyone.
 
 
 
+
 <button id="restartButton">
 
 
@@ -389,13 +414,18 @@ Keep loving everyone.
 
 
 
+
+
 </section>
 
 
 
 
 
-</div>
+
+
+</main>
+
 
 
 
@@ -409,14 +439,24 @@ Keep loving everyone.
 ========================= -->
 
 
-<audio 
+<audio
+
 id="backgroundMusic"
-loop>
+
+loop
+
+preload="auto"
+
+playsinline>
 
 
-<source 
+
+<source
+
 src="assets/music.mp3"
+
 type="audio/mpeg">
+
 
 
 </audio>
@@ -427,7 +467,9 @@ type="audio/mpeg">
 
 
 
+
 <script src="script.js"></script>
+
 
 
 </body>
