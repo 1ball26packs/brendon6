@@ -2,18 +2,12 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <!-- 1. DITAMBAHKAN viewport-fit=cover UNTUK MENABRAK AREA PONI HP -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Petualangan Brendon</title>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <style>
         * { box-sizing: border-box; }
-        
-        /* 2. DIPASTIKAN TAG HTML JUGA BERWARNA HITAM */
-        html, body { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Press Start 2P', cursive; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        
-        /* 3. MEMASTIKAN BACKDROP FULLSCREEN SELALU HITAM */
-        ::backdrop { background-color: #000; }
+        body { margin: 0; padding: 0; background: #000; color: #fff; font-family: 'Press Start 2P', cursive; overflow: hidden; display: flex; justify-content: center; align-items: center; height: 100vh; }
         
         #game-wrapper { width: 95%; max-width: 500px; height: 95vh; display: flex; flex-direction: column; align-items: center; justify-content: center;}
 
@@ -28,7 +22,7 @@
         #puzzle-container { display: grid; grid-template-columns: repeat(4, 1fr); width: 100%; aspect-ratio: 4/3; margin: 0 0 10px 0; border: 2px solid #fff; background: #111; }
         .tile { border: 1px solid #000; background-color: #333; }
         .revealed { 
-            background-image: url('siren.png'); 
+            background-image: url('siren2.png'); 
             background-size: 400% 300%; 
             animation: popReveal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; 
         }
@@ -109,7 +103,6 @@
 <body>
 
 <div id="game-wrapper">
-    <!-- LOADING SCREEN -->
     <div id="loading-screen" class="box">
         <h2 style="font-size: 14px; color: #ffcc00; letter-spacing: 2px;">PREPARING MISSION...</h2>
         <div id="loading-bar">
@@ -118,21 +111,18 @@
         <p id="loading-text" style="font-size: 8px; margin-top: 15px; color: #aaa;">LOADING... 0%</p>
     </div>
 
-    <!-- START MENU -->
     <div id="start-menu" class="box hidden">
         <h2 class="title-anim" style="font-size: 18px; line-height: 1.5; color: #ffcc00;">SIREN<br>RESCUE</h2>
         <p style="font-size: 8px; margin-bottom: 30px;">Misi Spesial Brendon</p>
         <button onclick="startGame()" style="font-size: 12px; padding: 15px;">PRESS START</button>
     </div>
 
-    <!-- GAME SCREEN -->
     <div id="game-screen" class="box hidden">
         <div id="puzzle-container"></div>
         <div id="story-text"></div>
         <div id="choices" class="choices-grid"></div>
     </div>
 
-    <!-- HUD (FOTO AVATAR & HEALTH) -->
     <div id="hud-screen" class="box hud-box hidden">
         <img id="avatar" src="normal.png" alt="Avatar">
         <div class="hud-info">
@@ -142,7 +132,6 @@
     </div>
 </div>
 
-<!-- CUSTOM POPUP MODAL -->
 <div id="custom-popup" class="popup-overlay hidden">
     <div class="box popup-box">
         <p id="popup-text">Pesan Notifikasi</p>
@@ -154,8 +143,10 @@
     let health = 3;
     let availableTiles = [0,1,2,3,4,5,6,7,8,9,10,11];
 
+    // Inisialisasi Audio Objek global
     let audioBGM, audioCorrect, audioWrong, audioSiren;
 
+    // Daftar semua asset yang harus di-load sebelum bermain
     const assetsToLoad = [
         { id: 'sirenPic', type: 'image', src: 'siren.png' },
         { id: 'normalPic', type: 'image', src: 'normal.png' },
@@ -171,6 +162,7 @@
     let loadedCount = 0;
     let preloaderFinished = false;
 
+    // Fungsi pelacak progres asset
     function trackProgress() {
         if (preloaderFinished) return;
         loadedCount++;
@@ -183,34 +175,38 @@
 
         if (loadedCount >= assetsToLoad.length) {
             preloaderFinished = true;
-            setTimeout(showStartMenu, 600);
+            setTimeout(showStartMenu, 600); // transisi mulus setelah 100%
         }
     }
 
+    // Eksekusi preload saat file HTML dibuka
     window.addEventListener('DOMContentLoaded', () => {
+        // Antisipasi jika preloader macet karena kebijakan proteksi audio browser mobile
         setTimeout(() => {
             if (!preloaderFinished) {
                 console.log("Preloader safety timeout triggered.");
                 preloaderFinished = true;
                 showStartMenu();
             }
-        }, 4000);
+        }, 4000); // Batas aman maksimal loading 4 detik
 
         assetsToLoad.forEach(asset => {
             if (asset.type === 'image') {
                 const img = new Image();
                 img.onload = trackProgress;
-                img.onerror = trackProgress;
+                img.onerror = trackProgress; // Lewati jika ada file rusak/hilang agar game tidak macet
                 img.src = asset.src;
             } else if (asset.type === 'audio') {
                 const audio = new Audio();
                 audio.preload = 'auto';
                 
+                // Menggunakan event 'loadedmetadata' karena lebih stabil di mobile browser
                 audio.addEventListener('loadedmetadata', trackProgress, { once: true });
                 audio.addEventListener('error', trackProgress, { once: true });
                 audio.src = asset.src;
                 audio.load();
 
+                // Simpan ke variabel global yang sesuai
                 if (asset.id === 'bgm') { audioBGM = audio; audioBGM.loop = true; }
                 if (asset.id === 'correct') audioCorrect = audio;
                 if (asset.id === 'wrong') audioWrong = audio;
@@ -224,6 +220,7 @@
         document.getElementById('start-menu').classList.remove('hidden');
     }
 
+    // Membuat Grid Puzzle
     const container = document.getElementById('puzzle-container');
     for(let i=0; i<12; i++) {
         let tile = document.createElement('div');
