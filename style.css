@@ -457,7 +457,9 @@ opacity:0;
 .pixel-boy img{
 
 
-    width:
+   width:
+
+    clamp(150px,20vw,150px);
 
     
 
