@@ -54,39 +54,23 @@ text:`
 
 👦 PLAYER FOUND
 
-
 NAME:
 
-
 Brendon Baskara
-
 Adinegara Siswanto
-
-
 
 NICKNAME:
 
-
 ⭐ Brendon
-
 ⭐ Tole
-
 ⭐ Ade
-
 ⭐ Sule
 
-
-
 LEVEL:
-
-
 6 YEARS OLD
 
 
-
 BIRTHDAY:
-
-
 8 July 2020
 
 `
@@ -102,34 +86,17 @@ text:`
 
 ✂️ SKILL UNLOCKED
 
-
 CRAFT MASTER
-
-
 
 Brendon loves creating:
 
-
 📄 Paper Art
-
-
 📦 Cardboard Creation
-
-
 ✂️ Scissors
-
-
 📏 Tape
-
-
-
 ✨ Imagination
 
-
-
 CREATIVITY LEVEL:
-
-
 MAXIMUM!
 
 `
@@ -145,25 +112,15 @@ text:`
 
 🚨 FAVORITE MODE
 
-
 EMERGENCY WORLD
 
 
 
 Brendon loves:
 
-
 🚨 Siren Sound
 
-
-🚑 Ambulance
-
-
-🚒 Fire Truck
-
-
-🚓 Police
-
+🎹 Playing Piano
 
 
 MISSION:
@@ -185,25 +142,17 @@ text:`
 ⭐ FUTURE QUEST
 
 
-
 Become:
-
 
 ✨ Smart Kid
 
-
 ✨ Diligent Student
-
 
 ✨ Sunday School Hero
 
-
 ✨ Loving Everyone
 
-
-
 Keep growing,
-
 
 Brendon!
 
@@ -224,15 +173,11 @@ text:`
 
 ⭐ Creative Kid
 
-
 ⭐ Curious Explorer
-
 
 ⭐ Kind Heart
 
-
 ⭐ Future Genius
-
 
 
 LEVEL COMPLETE!
