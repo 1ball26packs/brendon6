@@ -525,6 +525,10 @@ translateY(-15px);
 
     overflow-y:auto;
 
+-webkit-overflow-scrolling:touch;
+
+touch-action:pan-y;
+
 
     padding:15px;
 
@@ -1161,7 +1165,7 @@ font-size:25px;
 
 .pixel-boy img{
 
-width:80%;
+width:90px;
 
 }
 
@@ -1203,5 +1207,15 @@ max-height:35vh;
 
 }
 
+
+}
+
+#storyText,
+#nextButton,
+#restartButton{
+
+position:relative;
+
+z-index:100;
 
 }
