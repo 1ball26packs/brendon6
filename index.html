@@ -1,177 +1,396 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-<title>Brendon's Pixel Adventure</title>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" 
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+
+<title>
+Brendon's Pixel Adventure
+</title>
+
 
 <link rel="stylesheet" href="style.css">
 
+
+<!-- PRELOAD ASSET -->
+
+<link rel="preload" 
+href="assets/brendon.gif" 
+as="image">
+
+
+<link rel="preload" 
+href="assets/music.mp3" 
+as="audio">
+
+
 </head>
+
 
 <body>
 
+
+
+<!-- =========================
+     LOADING SCREEN
+========================= -->
+
+
+<div id="loadingScreen">
+
+
+    <div class="loading-title">
+
+        BRENDON'S<br>
+        PIXEL ADVENTURE
+
+    </div>
+
+
+
+    <div class="loading-text">
+
+        LOADING SYSTEM...
+
+    </div>
+
+
+
+    <div class="loading-bar">
+
+        <div id="loadingFill"></div>
+
+    </div>
+
+
+
+    <div id="loadingPercent">
+
+        0%
+
+    </div>
+
+
+
+    <div id="loadingStatus">
+
+        Preparing Birthday Quest...
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
+<!-- =========================
+     MAIN GAME
+========================= -->
+
+
 <div id="game">
 
-    <!-- BACKGROUND PIXEL -->
-    <div class="pixel-stars"></div>
-    <div class="scanline"></div>
 
+<div class="pixel-stars"></div>
 
-    <!-- =====================
-         START SCREEN
-    ====================== -->
+<div class="scanline"></div>
 
-    <section id="startScreen" class="screen active">
 
-        <div class="logo">
 
-            <h1>
-                BRENDON'S<br>
-                PIXEL ADVENTURE
-            </h1>
 
-            <p>
-                🎮 A Birthday Quest 🎮
-            </p>
 
-        </div>
+<!-- =========================
+     START SCREEN
+========================= -->
 
 
-        <button id="startButton">
-            PRESS START
-        </button>
+<section 
+id="startScreen" 
+class="screen active">
 
 
-        <div class="blink">
-            INSERT COIN
-        </div>
+<div class="logo">
 
-    </section>
 
+<h1>
 
+BRENDON'S<br>
+PIXEL ADVENTURE
 
-    <!-- =====================
-         STORY SCREEN
-    ====================== -->
+</h1>
 
-    <section id="storyScreen" class="screen">
 
 
-        <div id="character">
+<p>
 
-            <div class="pixel-boy">
-                👦
-            </div>
+🎮 A Birthday Quest 🎮
 
-        </div>
+</p>
 
 
+</div>
 
-        <div id="storyBox">
 
 
-            <div id="storyText">
 
-            </div>
+<button id="startButton">
 
+PRESS START
 
+</button>
 
-            <div id="loadingBar">
 
-                <div id="loadingProgress"></div>
 
-            </div>
+<div class="blink">
 
+INSERT COIN
 
-            <div id="stage">
+</div>
 
-                STAGE 1
 
-            </div>
 
+</section>
 
-        </div>
 
 
-    </section>
 
 
 
 
-    <!-- =====================
-          EMERGENCY SCREEN
-    ====================== -->
 
 
-    <section id="emergencyScreen" class="screen">
+<!-- =========================
+     STORY SCREEN
+========================= -->
 
-        <div class="siren">
 
-            🚨 🚑 🚒 🚓
+<section 
+id="storyScreen" 
+class="screen">
 
-        </div>
 
 
-        <h2>
-            EMERGENCY WORLD
-        </h2>
+<div id="character">
 
 
-        <p>
-            Brendon's Favorite!
-        </p>
+<div class="pixel-boy">
 
 
-    </section>
+<img 
+src="assets/brendon.gif"
+alt="Brendon Pixel Character"
+loading="eager">
 
 
+</div>
 
 
+</div>
 
-    <!-- =====================
-          ENDING SCREEN
-    ====================== -->
 
 
-    <section id="endingScreen" class="screen">
 
 
-        <div class="firework">
-            ✨ 🎆 ✨
-        </div>
 
+<div id="storyBox">
 
-        <h1 class="birthday">
 
-            HAPPY<br>
-            6TH<br>
-            BIRTHDAY<br>
-            BRENDON
 
-        </h1>
+<div id="storyText">
 
 
+</div>
 
-        <p>
 
-            May God Bless You Always ❤️
 
-        </p>
 
 
-        <p>
+<button id="nextButton">
 
-            Keep creating.<br>
-            Keep learning.<br>
-            Keep loving everyone.
 
-        </p>
+NEXT ▶
 
 
+</button>
 
-    </section>
+
+
+
+
+<div id="loadingBar">
+
+
+<div id="loadingProgress">
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+<div id="stage">
+
+
+STAGE 1
+
+
+</div>
+
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+     EMERGENCY SCREEN
+========================= -->
+
+
+<section 
+id="emergencyScreen" 
+class="screen">
+
+
+
+<div class="siren">
+
+🚨 🚑 🚒 🚓
+
+</div>
+
+
+
+
+<h2>
+
+EMERGENCY WORLD
+
+</h2>
+
+
+
+
+<p>
+
+Brendon's Favorite!
+
+</p>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+     ENDING SCREEN
+========================= -->
+
+
+<section 
+id="endingScreen" 
+class="screen">
+
+
+
+<div class="firework">
+
+✨ 🎆 ✨
+
+</div>
+
+
+
+
+<h1 class="birthday">
+
+
+HAPPY<br>
+
+6TH<br>
+
+BIRTHDAY<br>
+
+BRENDON
+
+
+
+</h1>
+
+
+
+
+
+
+<p>
+
+May God Bless You Always ❤️
+
+</p>
+
+
+
+
+
+
+<p>
+
+Keep creating.<br>
+
+Keep learning.<br>
+
+Keep loving everyone.
+
+
+</p>
+
+
+
+
+
+
+<button id="restartButton">
+
+
+🔄 PLAY AGAIN
+
+
+</button>
+
+
+
+
+</section>
+
 
 
 
@@ -182,13 +401,29 @@
 
 
 
-<!-- AUDIO -->
 
-<audio id="backgroundMusic" loop>
 
-    <source src="music.mp3" type="audio/mpeg">
+
+<!-- =========================
+     BACKGROUND MUSIC
+========================= -->
+
+
+<audio 
+id="backgroundMusic"
+loop>
+
+
+<source 
+src="assets/music.mp3"
+type="audio/mpeg">
+
 
 </audio>
+
+
+
+
 
 
 
