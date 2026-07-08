@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Brendon's Pixel Adventure</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<div id="game">
+
+    <!-- BACKGROUND PIXEL -->
+    <div class="pixel-stars"></div>
+    <div class="scanline"></div>
+
+
+    <!-- =====================
+         START SCREEN
+    ====================== -->
+
+    <section id="startScreen" class="screen active">
+
+        <div class="logo">
+
+            <h1>
+                BRENDON'S<br>
+                PIXEL ADVENTURE
+            </h1>
+
+            <p>
+                🎮 A Birthday Quest 🎮
+            </p>
+
+        </div>
+
+
+        <button id="startButton">
+            PRESS START
+        </button>
+
+
+        <div class="blink">
+            INSERT COIN
+        </div>
+
+    </section>
+
+
+
+    <!-- =====================
+         STORY SCREEN
+    ====================== -->
+
+    <section id="storyScreen" class="screen">
+
+
+        <div id="character">
+
+            <div class="pixel-boy">
+                👦
+            </div>
+
+        </div>
+
+
+
+        <div id="storyBox">
+
+
+            <div id="storyText">
+
+            </div>
+
+
+
+            <div id="loadingBar">
+
+                <div id="loadingProgress"></div>
+
+            </div>
+
+
+            <div id="stage">
+
+                STAGE 1
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+
+
+    <!-- =====================
+          EMERGENCY SCREEN
+    ====================== -->
+
+
+    <section id="emergencyScreen" class="screen">
+
+        <div class="siren">
+
+            🚨 🚑 🚒 🚓
+
+        </div>
+
+
+        <h2>
+            EMERGENCY WORLD
+        </h2>
+
+
+        <p>
+            Brendon's Favorite!
+        </p>
+
+
+    </section>
+
+
+
+
+
+    <!-- =====================
+          ENDING SCREEN
+    ====================== -->
+
+
+    <section id="endingScreen" class="screen">
+
+
+        <div class="firework">
+            ✨ 🎆 ✨
+        </div>
+
+
+        <h1 class="birthday">
+
+            HAPPY<br>
+            6TH<br>
+            BIRTHDAY<br>
+            BRENDON
+
+        </h1>
+
+
+
+        <p>
+
+            May God Bless You Always ❤️
+
+        </p>
+
+
+        <p>
+
+            Keep creating.<br>
+            Keep learning.<br>
+            Keep loving everyone.
+
+        </p>
+
+
+
+    </section>
+
+
+
+
+</div>
+
+
+
+
+
+<!-- AUDIO -->
+
+<audio id="backgroundMusic" loop>
+
+    <source src="music.mp3" type="audio/mpeg">
+
+</audio>
+
+
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>

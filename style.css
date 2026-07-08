@@ -1,0 +1,812 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+
+* {
+    box-sizing: border-box;
+    margin:0;
+    padding:0;
+}
+
+
+html, body {
+
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:#05051a;
+
+}
+
+
+body {
+
+    font-family:'Press Start 2P', monospace;
+    color:white;
+
+}
+
+
+
+/* =========================
+   GAME CONTAINER
+========================= */
+
+
+#game {
+
+    width:100vw;
+    height:100vh;
+    position:relative;
+    overflow:hidden;
+
+    background:
+
+    linear-gradient(
+        to bottom,
+        #10105c,
+        #020214
+    );
+
+}
+
+
+
+/* =========================
+   PIXEL STAR BACKGROUND
+========================= */
+
+
+.pixel-stars {
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background-image:
+
+    radial-gradient(
+        white 2px,
+        transparent 2px
+    );
+
+    background-size:
+
+    45px 45px;
+
+
+    animation:
+
+    starsMove 12s linear infinite;
+
+
+    opacity:.5;
+
+}
+
+
+
+@keyframes starsMove {
+
+
+    from {
+
+        background-position:
+        0 0;
+
+    }
+
+
+    to {
+
+        background-position:
+        0 400px;
+
+    }
+
+
+}
+
+
+
+
+
+/* =========================
+   CRT SCANLINE EFFECT
+========================= */
+
+
+.scanline {
+
+
+position:absolute;
+
+inset:0;
+
+pointer-events:none;
+
+
+background:
+
+repeating-linear-gradient(
+
+    to bottom,
+
+    rgba(255,255,255,.05),
+
+    rgba(255,255,255,.05) 2px,
+
+    transparent 2px,
+
+    transparent 5px
+
+);
+
+
+z-index:20;
+
+
+}
+
+
+
+
+/* =========================
+   SCREEN SYSTEM
+========================= */
+
+
+.screen {
+
+
+display:none;
+
+width:100%;
+
+height:100%;
+
+
+align-items:center;
+
+justify-content:center;
+
+flex-direction:column;
+
+
+text-align:center;
+
+
+padding:25px;
+
+
+position:absolute;
+
+
+}
+
+
+.screen.active {
+
+display:flex;
+
+}
+
+
+
+
+
+/* =========================
+   START SCREEN
+========================= */
+
+
+.logo h1 {
+
+
+font-size:
+
+clamp(25px,8vw,55px);
+
+
+line-height:1.5;
+
+
+color:#ffe600;
+
+
+text-shadow:
+
+5px 5px 0 #000;
+
+
+
+animation:
+
+titleGlow 1.5s infinite alternate;
+
+
+}
+
+
+
+.logo p {
+
+
+margin-top:25px;
+
+font-size:
+
+clamp(12px,3vw,18px);
+
+color:#00ffff;
+
+}
+
+
+
+
+@keyframes titleGlow {
+
+
+from {
+
+filter:
+brightness(1);
+
+}
+
+
+to {
+
+filter:
+brightness(1.8);
+
+}
+
+
+}
+
+
+
+
+
+/* =========================
+   BUTTON
+========================= */
+
+
+button {
+
+
+margin-top:50px;
+
+
+padding:
+
+18px 30px;
+
+
+font-family:
+
+'Press Start 2P';
+
+
+font-size:
+
+16px;
+
+
+background:#ffcc00;
+
+
+border:
+
+5px solid white;
+
+
+box-shadow:
+
+8px 8px 0 black;
+
+
+cursor:pointer;
+
+
+animation:
+
+buttonBlink 1s infinite;
+
+
+
+}
+
+
+
+button:active {
+
+
+transform:
+
+translate(5px,5px);
+
+
+box-shadow:
+
+3px 3px 0 black;
+
+
+}
+
+
+
+
+@keyframes buttonBlink {
+
+
+50% {
+
+opacity:.5;
+
+}
+
+}
+
+
+
+
+.blink {
+
+
+margin-top:40px;
+
+font-size:12px;
+
+
+animation:
+
+blink 1s infinite;
+
+
+}
+
+
+@keyframes blink {
+
+
+50% {
+
+opacity:0;
+
+}
+
+
+}
+
+
+
+
+
+
+/* =========================
+   STORY
+========================= */
+
+
+#character {
+
+
+height:160px;
+
+}
+
+
+
+.pixel-boy {
+
+
+font-size:
+
+100px;
+
+
+animation:
+
+float 1s infinite alternate;
+
+
+}
+
+
+
+@keyframes float {
+
+
+from {
+
+transform:
+translateY(0);
+
+}
+
+
+to {
+
+transform:
+translateY(-20px);
+
+}
+
+
+}
+
+
+
+
+
+#storyBox {
+
+
+width:90%;
+
+max-width:700px;
+
+}
+
+
+
+#storyText {
+
+
+font-size:
+
+clamp(14px,4vw,25px);
+
+
+line-height:2;
+
+
+min-height:160px;
+
+
+color:#fff;
+
+
+text-shadow:
+
+3px 3px black;
+
+
+}
+
+
+
+
+
+/* =========================
+   PROGRESS BAR
+========================= */
+
+
+#loadingBar {
+
+
+width:100%;
+
+
+height:25px;
+
+
+border:
+
+4px solid white;
+
+
+margin-top:25px;
+
+
+background:black;
+
+
+}
+
+
+
+#loadingProgress {
+
+
+height:100%;
+
+
+width:0%;
+
+
+background:
+
+linear-gradient(
+90deg,
+#00ff66,
+#ffff00
+);
+
+
+transition:
+
+width 1s;
+
+
+}
+
+
+
+
+#stage {
+
+
+margin-top:20px;
+
+
+color:#00ffff;
+
+
+font-size:14px;
+
+
+}
+
+
+
+
+
+/* =========================
+   EMERGENCY MODE
+========================= */
+
+
+#emergencyScreen {
+
+
+animation:
+
+emergencyFlash .5s infinite;
+
+
+}
+
+
+
+.siren {
+
+
+font-size:
+
+70px;
+
+
+animation:
+
+shake .3s infinite;
+
+
+}
+
+
+
+#emergencyScreen h2 {
+
+
+font-size:
+
+clamp(25px,7vw,50px);
+
+
+color:red;
+
+
+text-shadow:
+
+4px 4px black;
+
+
+}
+
+
+
+
+
+@keyframes emergencyFlash {
+
+
+0% {
+
+background:#300;
+
+}
+
+
+50% {
+
+background:#003;
+
+}
+
+
+100% {
+
+background:#300;
+
+}
+
+
+}
+
+
+
+@keyframes shake {
+
+
+0%{
+
+transform:
+translateX(-5px);
+
+}
+
+
+50%{
+
+transform:
+translateX(5px);
+
+}
+
+
+100%{
+
+transform:
+translateX(-5px);
+
+}
+
+
+}
+
+
+
+
+
+
+/* =========================
+   ENDING
+========================= */
+
+
+.firework {
+
+
+font-size:
+
+80px;
+
+
+animation:
+
+explode 1s infinite alternate;
+
+
+}
+
+
+
+@keyframes explode {
+
+
+from {
+
+transform:
+scale(.8);
+
+}
+
+
+to {
+
+transform:
+scale(1.2);
+
+}
+
+
+}
+
+
+
+
+.birthday {
+
+
+font-size:
+
+clamp(30px,10vw,70px);
+
+
+line-height:
+
+1.4;
+
+
+color:#ffd900;
+
+
+text-shadow:
+
+6px 6px black;
+
+
+animation:
+
+birthdayPop 1s infinite alternate;
+
+
+}
+
+
+
+
+@keyframes birthdayPop {
+
+
+from {
+
+transform:
+scale(1);
+
+}
+
+
+to {
+
+transform:
+scale(1.05);
+
+}
+
+
+}
+
+
+
+
+
+
+/* =========================
+   MOBILE OPTIMIZATION
+========================= */
+
+
+@media(max-width:600px){
+
+
+.logo h1 {
+
+font-size:28px;
+
+}
+
+
+
+button {
+
+font-size:12px;
+
+}
+
+
+
+.pixel-boy {
+
+font-size:80px;
+
+}
+
+
+}
